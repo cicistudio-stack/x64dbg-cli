@@ -1,8 +1,8 @@
-# x64dbg-ai
+# x64dbg-cli
 
 English | [简体中文](README_zh.md)
 
-> **This is a fork, not the official x64dbg.** x64dbg-ai is based on [x64dbg](https://github.com/x64dbg/x64dbg) and adds a command-line interface (`x64dbg-cli.exe`) so that AI tools and scripts can drive the debugger. It is maintained independently by the owner of this fork. It is not affiliated with, endorsed by, or supported by the x64dbg authors or team. The original code remains copyrighted by its authors and is used under the original license (GNU GPL v3, see [License and copyright](#license-and-copyright)). Report problems with this fork in this repository's issue tracker, not in x64dbg's Discord, Slack, Gitter, Matrix, IRC or issue tracker. Details: [About this fork](#about-this-fork). This text is not legal advice.
+> **This is a fork, not the official x64dbg.** x64dbg-cli is based on [x64dbg](https://github.com/x64dbg/x64dbg) and adds a command-line interface (`x64dbg-cli.exe`) so that AI tools and scripts can drive the debugger. It is maintained independently by the owner of this fork. It is not affiliated with, endorsed by, or supported by the x64dbg authors or team. The original code remains copyrighted by its authors and is used under the original license (GNU GPL v3, see [License and copyright](#license-and-copyright)). Report problems with this fork in this repository's issue tracker, not in x64dbg's Discord, Slack, Gitter, Matrix, IRC or issue tracker. Details: [About this fork](#about-this-fork). This text is not legal advice.
 
 <img width="100" src="https://github.com/x64dbg/x64dbg/raw/development/src/bug_black.png"/>
 
@@ -69,13 +69,13 @@ The full list of operations is in [docs/cli/command-reference.md](docs/cli/comma
 
 ## About this fork
 
-x64dbg-ai is a fork of [x64dbg](https://github.com/x64dbg/x64dbg). The debugger core, the GUI and nearly all of the code are upstream's work. This fork adds a command-line interface for AI tools and leaves the GUI unchanged.
+x64dbg-cli is a fork of [x64dbg](https://github.com/x64dbg/x64dbg). The debugger core, the GUI and nearly all of the code are upstream's work. This fork adds a command-line interface for AI tools and leaves the GUI unchanged.
 
 - **Upstream project:** <https://github.com/x64dbg/x64dbg>, licensed under the GNU GPL v3 (see [License and copyright](#license-and-copyright)).
-- **This fork:** `https://github.com/<your-GitHub-name>/x64dbg-ai` (placeholder: replace with the real URL), maintained independently by `<your-GitHub-name>` and contributors.
+- **This fork:** <https://github.com/cicistudio-stack/x64dbg-cli>, maintained independently by [cicistudio-stack](https://github.com/cicistudio-stack) and contributors.
 - **No affiliation:** this is not the official x64dbg. The x64dbg authors and team did not write, review, endorse or support the changes in this fork. "x64dbg" is the name of the upstream project; it is used here only to say what this fork is based on.
 - **Support:** do not use upstream's support channels (Discord, Slack, Gitter, Matrix, IRC, issue tracker, sponsors) for this fork. Use this repository's issue tracker.
-- **Starting point:** the upstream commit this fork started from is not recorded in this repository. The history begins with a single commit, `init version`.
+- **Starting point:** this is a GitHub fork of x64dbg. Its changes are in one commit, `add x64dbg cli`, on top of upstream commit [`79d5716`](https://github.com/x64dbg/x64dbg/commit/79d57163d07432d24f0bff00298bfd2acd98f341) (2026-10-28, branch `development`). The full upstream history is part of this repository.
 
 ### What this fork adds
 
@@ -98,22 +98,25 @@ Documentation in [docs/cli/](docs/cli/README.md):
 
 ### Build the CLI
 
-Only the 64-bit build is documented and tested. From the repository root:
+Only the 64-bit build is documented and tested. It was built with Visual Studio 2026 Community (MSVC 14.51), CMake and the Ninja that comes with Visual Studio. You also need Git.
+
+1. Clone with the sub-projects (they are upstream's git submodules):
 
 ```
-.agents\tasks\build-x64.bat
+git clone --recursive https://github.com/cicistudio-stack/x64dbg-cli.git
+cd x64dbg-cli
 ```
 
-The script calls `vcvars64`, then runs:
+   In an existing clone, run `git submodule update --init --recursive`.
+
+2. Open an "x64 Native Tools Command Prompt for VS" (it runs `vcvars64.bat`) and run, from the repository root:
 
 ```
 cmake -B build64 -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DCMAKE_UNITY_BUILD_BATCH_SIZE=6 -DX64DBG_RELEASE=OFF
 cmake --build build64
 ```
 
-The script contains the paths of the author's machine (Visual Studio 2026 Community, `d:\cicistudio2026\x64dbg-ai`). Edit it or run the commands yourself in a Visual Studio x64 command prompt. The result is `bin\x64\x64dbg-cli.exe`, next to the GUI and the DLLs it needs. Building the CLI also builds the Qt GUI. See also upstream's [compile guide](https://github.com/x64dbg/x64dbg/wiki/Compiling-the-whole-project).
-
-`src\dbg\btparser`, `src\third_party\TitanEngine`, `src\third_party\GleeBug` and `deps` are upstream sub-projects (listed in `.gitmodules`). If they are empty in your checkout, fill them from `https://github.com/x64dbg/btparser`, `.../TitanEngine`, `.../GleeBug` and `.../deps` (see [Third-party components](#third-party-components)).
+The result is `bin\x64\x64dbg-cli.exe`, next to the GUI and the DLLs it needs. Building the CLI also builds the Qt GUI. On the first configure, upstream's build scripts download a prebuilt Qt 5 package from the x64dbg `deps` releases, which is large. See also upstream's [compile guide](https://github.com/x64dbg/x64dbg/wiki/Compiling-the-whole-project).
 
 ### Use the CLI
 
@@ -139,7 +142,7 @@ In `--json` mode the CLI prints a `hello` line, then reads one JSON request per 
 
 The GUI and the debugger core are unchanged, except for one small tweak in the core's logging thread. Everything else is added. The full list with the date is in [Modifications](#modifications).
 
-New directories: `src\cli` (the CLI, JSON schemas and test scripts), `src\tests\cli_target` (a small test program for the CLI) and `docs\cli` (CLI documentation). The `.agents` directory contains AI-generated working notes, build logs and test evidence from developing the CLI. It is not part of the product and is not needed to build or use it.
+New directories: `src\cli` (the CLI, JSON schemas and test scripts), `src\tests\cli_target` (a small test program for the CLI) and `docs\cli` (CLI documentation). The CLI was developed with the help of AI tools. Their working notes, logs and test evidence are kept in a local `.agents` directory, which `.gitignore` excludes, so it is not in this repository.
 
 ## Screenshots
 
@@ -188,7 +191,7 @@ This is a community effort and we accept pull requests! See the [CONTRIBUTING](.
 
 ## Contributing to this fork
 
-- Issues and pull requests about the CLI, its documentation or any other change made in this fork belong in this repository (`https://github.com/<your-GitHub-name>/x64dbg-ai/issues`, placeholder URL).
+- Issues and pull requests about the CLI, its documentation or any other change made in this fork belong in this repository (<https://github.com/cicistudio-stack/x64dbg-cli/issues>).
 - Contributions are accepted under the same license as the rest of the project (GNU GPL v3, see [License and copyright](#license-and-copyright)). By submitting a contribution you confirm that you have the right to submit it under that license.
 - If a bug also happens in an official upstream snapshot, report it upstream. Do not report bugs of the CLI upstream.
 - To sync with upstream:
@@ -269,7 +272,7 @@ Without the help of many people and other open-source projects, it would not hav
 **Copyright.**
 
 - The copyright in the original x64dbg code stays with the original authors and contributors: the x64dbg team and the people listed in [Developers](#developers), [Special Thanks](#special-thanks) and the [contributors page](https://github.com/x64dbg/x64dbg/graphs/contributors). Their copyright notices and the LICENSE file are retained.
-- The modifications and new files of this fork (listed in [Modifications](#modifications)) are copyright (C) 2026 `<your-GitHub-name>` and the contributors of this fork. They are released under the same license, GNU GPL v3, because a work based on a GPL program must be licensed as a whole under the GPL.
+- The modifications and new files of this fork (listed in [Modifications](#modifications)) are copyright (C) 2026 cicistudio-stack and the contributors of this fork. They are released under the same license, GNU GPL v3, because a work based on a GPL program must be licensed as a whole under the GPL.
 - Following upstream's convention, source files have no per-file license header. The LICENSE file applies to all of them.
 
 **What the license asks of you, in plain words.** Section numbers refer to the LICENSE file in this repository.
@@ -285,7 +288,7 @@ This is not legal advice. If you need certainty, for example for commercial use 
 
 ## Modifications
 
-Notice under section 6a of the license. These are the changes that this fork made to the upstream x64dbg code, as of 2026-10-28. The upstream commit that this fork started from is not recorded here. Once the changes are committed, the git history shows the exact dates; compare with upstream, for example with `git diff upstream/development`.
+Notice under section 6a of the license. These are the changes that this fork made to the upstream x64dbg code, as of 2026-10-28. This fork started from upstream commit `79d57163d07432d24f0bff00298bfd2acd98f341`; the git history shows the exact dates, and you can compare with upstream, for example with `git diff 79d5716 HEAD` or `git diff upstream/development`.
 
 Changed upstream files (from `git diff --stat`):
 
@@ -296,6 +299,7 @@ Changed upstream files (from `git diff --stat`):
 | `src/dbg/console.cpp` | the two log forwarding tasks use a minimum sleep of 5 ms instead of the default 100 ms when the core runs headless (`BridgeIsHeadless()`); the GUI keeps the default; 2 lines |
 | `src/tests/CMakeLists.txt` | registers the `cli_target` test program (also as an administrator variant); +7 lines |
 | `docs/conf.py` | excludes `cli/*` from the Sphinx documentation build; 1 line |
+| `.gitignore` | ignores the local `.agents/` directory; 1 line |
 | `README.md`, `README_zh.md` | fork notice and the sections of this document |
 
 New files and directories (not in upstream):
@@ -303,9 +307,8 @@ New files and directories (not in upstream):
 - `src/cli/`: the CLI (C++ sources, JSON schemas, Python test and generator scripts)
 - `src/tests/cli_target/`: a test program for the CLI
 - `docs/cli/`: CLI documentation
-- `.agents/`: AI-generated working notes, logs and test evidence (not part of the product)
 
-Not modifications: `src/dbg/btparser`, `src/third_party/TitanEngine`, `src/third_party/GleeBug` and `deps` are copies of upstream's sub-projects (see below).
+Not modifications: `src/dbg/btparser`, `src/third_party/TitanEngine`, `src/third_party/GleeBug` and `deps` are upstream's git submodules (see below).
 
 ## Third-party components
 
@@ -324,7 +327,7 @@ Third-party components keep their own licenses. This table lists what can be con
 
 [docs/licenses.md](docs/licenses.md) is upstream's list. It also names XEDParse (LGPL), asmjit and asmtk (zlib) and Qt 5 (LGPL; see Qt licensing for the exact terms). Those components are not present as source with a license file in this checkout, so they are not verified here. No license information could be found in this checkout for Scylla, the LLVM demangler (prebuilt libraries in `src/dbg/LLVMDemangle`) and the prebuilt Microsoft files in `deps` (such as `dbghelp.dll`, `msdia140.dll` and the Visual C++ runtime), which are under Microsoft's terms and not under the GPL. The icons (VisualPharm, Fugue) are credited in [Credits](#credits); check their terms before redistributing.
 
-`src\dbg\btparser`, `src\third_party\TitanEngine`, `src\third_party\GleeBug` and `deps` were cloned from `https://github.com/x64dbg/btparser`, `.../TitanEngine`, `.../GleeBug` and `.../deps` (see `.agents/tasks/build-x64dbg-report.md`). Of these, `deps` has no license file in this checkout.
+`src\dbg\btparser`, `src\third_party\TitanEngine`, `src\third_party\GleeBug` and `deps` are git submodules that point to `https://github.com/x64dbg/btparser`, `.../TitanEngine`, `.../GleeBug` and `.../deps` (see `.gitmodules`). They are fetched with `git submodule update --init --recursive`. When the license check above was made, `deps` had no license file in the checkout.
 
 ## Disclaimer
 

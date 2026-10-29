@@ -1,8 +1,8 @@
-# x64dbg-ai
+# x64dbg-cli
 
 [English](README.md) | 简体中文
 
-> **本项目是一个分支（fork），不是官方的 x64dbg。** x64dbg-ai 基于 [x64dbg](https://github.com/x64dbg/x64dbg)，新增了命令行接口（`x64dbg-cli.exe`），方便 AI 工具和脚本驱动调试器。本分支由其所有者独立维护，与 x64dbg 的作者和团队没有隶属关系，也未获得他们的认可或支持。原始代码的版权仍归原作者所有，并按原许可证（GNU GPL v3，见[许可证与版权](#许可证与版权)）使用。使用本分支时遇到的问题，请在本仓库的 issue 中反馈，不要到 x64dbg 的 Discord、Slack、Gitter、Matrix、IRC 或 issue 页面提问。详情见[关于本分支](#关于本分支)。本文不构成法律意见。
+> **本项目是一个分支（fork），不是官方的 x64dbg。** x64dbg-cli 基于 [x64dbg](https://github.com/x64dbg/x64dbg)，新增了命令行接口（`x64dbg-cli.exe`），方便 AI 工具和脚本驱动调试器。本分支由其所有者独立维护，与 x64dbg 的作者和团队没有隶属关系，也未获得他们的认可或支持。原始代码的版权仍归原作者所有，并按原许可证（GNU GPL v3，见[许可证与版权](#许可证与版权)）使用。使用本分支时遇到的问题，请在本仓库的 issue 中反馈，不要到 x64dbg 的 Discord、Slack、Gitter、Matrix、IRC 或 issue 页面提问。详情见[关于本分支](#关于本分支)。本文不构成法律意见。
 
 <img width="100" src="./src/bug_black.png"/>
 
@@ -63,13 +63,13 @@
 
 ## 关于本分支
 
-x64dbg-ai 是 [x64dbg](https://github.com/x64dbg/x64dbg) 的一个分支。调试器核心、图形界面以及绝大部分代码都是上游的成果。本分支只新增了一个面向 AI 工具的命令行接口，图形界面保持不变。
+x64dbg-cli 是 [x64dbg](https://github.com/x64dbg/x64dbg) 的一个分支。调试器核心、图形界面以及绝大部分代码都是上游的成果。本分支只新增了一个面向 AI 工具的命令行接口，图形界面保持不变。
 
 - **上游项目：** <https://github.com/x64dbg/x64dbg>，使用 GNU GPL v3 许可证（见[许可证与版权](#许可证与版权)）。
-- **本分支：** `https://github.com/<your-GitHub-name>/x64dbg-ai`（占位地址，发布后请替换为真实地址），由 `<your-GitHub-name>` 和贡献者独立维护。
+- **本分支：** <https://github.com/cicistudio-stack/x64dbg-cli>，由 [cicistudio-stack](https://github.com/cicistudio-stack) 和贡献者独立维护。
 - **无隶属关系：** 这不是官方的 x64dbg。x64dbg 的作者和团队没有编写、审查、认可或支持本分支中的改动。“x64dbg”是上游项目的名称，此处仅用来说明本分支基于什么项目。
 - **技术支持：** 不要把本分支的问题发到上游的支持渠道（Discord、Slack、Gitter、Matrix、IRC、issue 页面、赞助商）。请使用本仓库的 issue。
-- **起点：** 本仓库没有记录本分支从上游哪个提交开始。提交历史只有一个提交：`init version`。
+- **起点：** 这是 x64dbg 的 GitHub 分支（fork）。本分支的改动都在一个提交 `add x64dbg cli` 中，它建立在上游提交 [`79d5716`](https://github.com/x64dbg/x64dbg/commit/79d57163d07432d24f0bff00298bfd2acd98f341)（2026-10-28，`development` 分支）之上。上游的完整历史也在本仓库中。
 
 ### 本分支新增的内容
 
@@ -92,22 +92,25 @@ x64dbg-ai 是 [x64dbg](https://github.com/x64dbg/x64dbg) 的一个分支。调�
 
 ### 构建 CLI
 
-目前只有 64 位版本有文档并经过测试。在仓库根目录执行：
+目前只有 64 位版本有文档并经过测试。构建环境是 Visual Studio 2026 Community（MSVC 14.51）、CMake 和 Visual Studio 自带的 Ninja。另外需要 Git。
+
+1. 连同子项目一起克隆（它们是上游的 git 子模块）：
 
 ```
-.agents\tasks\build-x64.bat
+git clone --recursive https://github.com/cicistudio-stack/x64dbg-cli.git
+cd x64dbg-cli
 ```
 
-该脚本先调用 `vcvars64`，然后运行：
+   如果已经克隆过，请运行 `git submodule update --init --recursive`。
+
+2. 打开“适用于 VS 的 x64 本机工具命令提示符”（它会运行 `vcvars64.bat`），在仓库根目录执行：
 
 ```
 cmake -B build64 -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DCMAKE_UNITY_BUILD_BATCH_SIZE=6 -DX64DBG_RELEASE=OFF
 cmake --build build64
 ```
 
-脚本里写的是作者本机的路径（Visual Studio 2026 Community、`d:\cicistudio2026\x64dbg-ai`），使用前请修改，或者在 Visual Studio x64 命令提示符中自行运行上面的命令。生成结果是 `bin\x64\x64dbg-cli.exe`，与图形界面及其所需的 DLL 放在同一目录。构建 CLI 时也会构建 Qt 图形界面。另见上游的[编译指南](https://github.com/x64dbg/x64dbg/wiki/Compiling-the-whole-project)。
-
-`src\dbg\btparser`、`src\third_party\TitanEngine`、`src\third_party\GleeBug` 和 `deps` 是上游的子项目（列在 `.gitmodules` 中）。如果检出后这些目录是空的，请从 `https://github.com/x64dbg/btparser`、`.../TitanEngine`、`.../GleeBug` 和 `.../deps` 获取（见[第三方组件](#第三方组件)）。
+生成结果是 `bin\x64\x64dbg-cli.exe`，与图形界面及其所需的 DLL 放在同一目录。构建 CLI 时也会构建 Qt 图形界面。第一次配置时，上游的构建脚本会从 x64dbg 的 `deps` 发布页下载预编译的 Qt 5 包，体积较大。另见上游的[编译指南](https://github.com/x64dbg/x64dbg/wiki/Compiling-the-whole-project)。
 
 ### 使用 CLI
 
@@ -133,7 +136,7 @@ x64dbg-cli.exe --exec "init \"C:\path\target.exe\"" --exec "bp kernel32.Sleep" -
 
 图形界面和调试器核心保持不变，只有核心日志线程中的一处小改动。其余都是新增内容。完整清单和日期见[修改说明](#修改说明)。
 
-新增目录：`src\cli`（CLI、JSON 结构定义和测试脚本）、`src\tests\cli_target`（CLI 用的小型测试程序）和 `docs\cli`（CLI 文档）。`.agents` 目录存放开发 CLI 时由 AI 生成的工作笔记、构建日志和测试记录，它不属于产品，构建和使用都不需要它。
+新增目录：`src\cli`（CLI、JSON 结构定义和测试脚本）、`src\tests\cli_target`（CLI 用的小型测试程序）和 `docs\cli`（CLI 文档）。CLI 是在 AI 工具的协助下开发的，它们的工作笔记、日志和测试记录保存在本地的 `.agents` 目录中。`.gitignore` 已排除该目录，所以它不在本仓库里。
 
 ## 屏幕截图
 
@@ -184,7 +187,7 @@ _本节是上游的内容，适用于上游 x64dbg 项目。本分支的贡献�
 
 ## 为本分支贡献
 
-- 与 CLI、CLI 文档或本分支其他改动有关的 issue 和拉取请求，请提交到本仓库（`https://github.com/<your-GitHub-name>/x64dbg-ai/issues`，占位地址）。
+- 与 CLI、CLI 文档或本分支其他改动有关的 issue 和拉取请求，请提交到本仓库（<https://github.com/cicistudio-stack/x64dbg-cli/issues>）。
 - 贡献按与项目其余部分相同的许可证（GNU GPL v3，见[许可证与版权](#许可证与版权)）接受。提交贡献即表示你确认自己有权按该许可证提交。
 - 如果某个 bug 在上游官方快照中同样存在，请向上游报告。不要把 CLI 的 bug 报告给上游。
 - 与上游同步：
@@ -265,7 +268,7 @@ _以下制作人员、开发人员和特别感谢名单属于上游，用于致�
 **版权。**
 
 - 原始 x64dbg 代码的版权仍归原作者和贡献者所有，包括 x64dbg 团队，以及[开发人员](#开发人员)、[特别感谢](#特别感谢)和[贡献者页面](https://github.com/x64dbg/x64dbg/graphs/contributors)中列出的人。他们的版权声明和 LICENSE 文件均予保留。
-- 本分支的修改和新增文件（见[修改说明](#修改说明)）的版权归 `<your-GitHub-name>` 和本分支的贡献者所有（Copyright (C) 2026）。它们按同一许可证 GNU GPL v3 发布，因为基于 GPL 程序的作品必须整体按 GPL 授权。
+- 本分支的修改和新增文件（见[修改说明](#修改说明)）的版权归 cicistudio-stack 和本分支的贡献者所有（Copyright (C) 2026）。它们按同一许可证 GNU GPL v3 发布，因为基于 GPL 程序的作品必须整体按 GPL 授权。
 - 沿用上游的惯例，源文件没有单独的许可证头，LICENSE 文件适用于所有这些文件。
 
 **许可证对你的要求（通俗说明）。** 下面的条款编号指本仓库 LICENSE 文件中的编号。
@@ -281,7 +284,7 @@ _以下制作人员、开发人员和特别感谢名单属于上游，用于致�
 
 ## 修改说明
 
-这是依据许可证第 6a 节给出的声明。以下是截至 2026-10-28 本分支对上游 x64dbg 代码所做的改动。本仓库没有记录本分支从上游哪个提交开始。改动提交之后，git 历史会显示确切日期；可以与上游对比，例如运行 `git diff upstream/development`。
+这是依据许可证第 6a 节给出的声明。以下是截至 2026-10-28 本分支对上游 x64dbg 代码所做的改动。本分支从上游提交 `79d57163d07432d24f0bff00298bfd2acd98f341` 开始；git 历史会显示确切日期，也可以与上游对比，例如运行 `git diff 79d5716 HEAD` 或 `git diff upstream/development`。
 
 被修改的上游文件（来自 `git diff --stat`）：
 
@@ -292,6 +295,7 @@ _以下制作人员、开发人员和特别感谢名单属于上游，用于致�
 | `src/dbg/console.cpp` | 核心以无界面（headless）方式运行时（`BridgeIsHeadless()`），两个日志转发任务的最小休眠时间从默认的 100 ms 改为 5 ms；图形界面仍使用默认值；改动 2 行 |
 | `src/tests/CMakeLists.txt` | 注册 `cli_target` 测试程序（含管理员权限的变体）；增加 7 行 |
 | `docs/conf.py` | 在 Sphinx 文档构建中排除 `cli/*`；改动 1 行 |
+| `.gitignore` | 忽略本地的 `.agents/` 目录；增加 1 行 |
 | `README.md`、`README_zh.md` | 分支声明以及本文档的各节 |
 
 新增的文件和目录（上游没有）：
@@ -299,9 +303,8 @@ _以下制作人员、开发人员和特别感谢名单属于上游，用于致�
 - `src/cli/`：CLI（C++ 源码、JSON 结构定义、Python 测试和生成脚本）
 - `src/tests/cli_target/`：CLI 用的测试程序
 - `docs/cli/`：CLI 文档
-- `.agents/`：AI 生成的工作笔记、日志和测试记录（不属于产品）
 
-不属于修改的内容：`src/dbg/btparser`、`src/third_party/TitanEngine`、`src/third_party/GleeBug` 和 `deps` 是上游子项目的副本（见下文）。
+不属于修改的内容：`src/dbg/btparser`、`src/third_party/TitanEngine`、`src/third_party/GleeBug` 和 `deps` 是上游的 git 子模块（见下文）。
 
 ## 第三方组件
 
@@ -320,7 +323,7 @@ _以下制作人员、开发人员和特别感谢名单属于上游，用于致�
 
 [docs/licenses.md](docs/licenses.md) 是上游给出的清单，其中还提到 XEDParse（LGPL）、asmjit 和 asmtk（zlib）以及 Qt 5（LGPL；具体条款请参见 Qt 的授权说明）。这些组件在本检出副本中没有带许可证文件的源码，所以这里没有核实。Scylla、LLVM 反修饰库（`src/dbg/LLVMDemangle` 中的预编译库）以及 `deps` 中预编译的微软文件（如 `dbghelp.dll`、`msdia140.dll` 和 Visual C++ 运行库）在本检出副本中找不到许可证信息；其中微软文件适用微软的条款，不属于 GPL。图标（VisualPharm、Fugue）见[制作人员](#制作人员)的致谢，再分发前请查阅它们的条款。
 
-`src\dbg\btparser`、`src\third_party\TitanEngine`、`src\third_party\GleeBug` 和 `deps` 是从 `https://github.com/x64dbg/btparser`、`.../TitanEngine`、`.../GleeBug` 和 `.../deps` 克隆来的（见 `.agents/tasks/build-x64dbg-report.md`）。其中 `deps` 在本检出副本中没有许可证文件。
+`src\dbg\btparser`、`src\third_party\TitanEngine`、`src\third_party\GleeBug` 和 `deps` 是指向 `https://github.com/x64dbg/btparser`、`.../TitanEngine`、`.../GleeBug` 和 `.../deps` 的 git 子模块（见 `.gitmodules`），用 `git submodule update --init --recursive` 获取。做上面的许可证核查时，`deps` 在检出副本中没有许可证文件。
 
 ## 免责声明
 

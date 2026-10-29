@@ -27,10 +27,11 @@ lists every GUI action, pane and context-menu entry with the command that replac
 
 ## Build
 
-64-bit, from the repository root (this is what produced the transcripts below):
+64-bit, from the repository root in an "x64 Native Tools Command Prompt for VS" (this is what produced the transcripts below; see the main [README](../../README.md#build-the-cli) for the prerequisites and the submodules):
 
 ```
-.agents\tasks\build-x64.bat        (vcvars64, cmake -B build64 -G Ninja -DCMAKE_BUILD_TYPE=Release ..., cmake --build build64)
+cmake -B build64 -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DCMAKE_UNITY_BUILD_BATCH_SIZE=6 -DX64DBG_RELEASE=OFF
+cmake --build build64
 ```
 
 The output is `bin\x64\x64dbg-cli.exe` next to `x64dbg.exe`; it needs the DLLs of that folder (`x64bridge.dll`, `x64dbg.dll`, ...).
@@ -298,8 +299,8 @@ An MCP server can expose each op as a tool (name = op, input schema = the `args`
 
 ## Real transcripts
 
-All transcripts are raw protocol logs of real runs (`>` request, `<` response/event) stored in `.agents/tasks/cli/transcripts/`;
-the excerpts below are shortened (`...`). Debuggee: `testprog.exe` (compiled with `cl /Zi /Od`, `.agents/tasks/cli/testprog`) and `cli_target.exe`.
+All transcripts are raw protocol logs of real runs (`>` request, `<` response/event) stored in a local `.agents/tasks/cli/transcripts/` directory that is not part of the repository;
+the excerpts below are shortened (`...`). Debuggee: `testprog.exe` (compiled with `cl /Zi /Od`) and `cli_target.exe` (`src/tests/cli_target`).
 
 ### 1. Labels, comments, xrefs, strings, handles, TCP (JSON) — `m3-readme-views.jsonl`
 
