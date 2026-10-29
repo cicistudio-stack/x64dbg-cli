@@ -1,0 +1,3 @@
+schema asm
+args: {addr:str, text:str, fill_nops?:bool}
+data: {addr:addr, size:int, bytes:hex}

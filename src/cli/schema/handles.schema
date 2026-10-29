@@ -1,0 +1,3 @@
+schema handles
+args: {limit?:int, offset?:int}
+data: {handles:[{handle:addr, type:str, type_number:int, name:(str|null), access:u32}], count:int}

@@ -1,0 +1,3 @@
+schema patches
+args: {}
+data: {patches:[{module:str, addr:addr, old:hex, new:hex}], count:int}

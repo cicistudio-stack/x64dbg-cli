@@ -16,6 +16,7 @@
 .vs/
 .vscode/
 .idea/
+.agents/
 build*/
 cmake-build*/
 dist/

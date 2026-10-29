@@ -1,0 +1,4 @@
+schema sym
+args: {pattern?:str, module?:str, type?:enum(all|import|export|symbol), addr?:str, limit?:int, offset?:int}
+data: {symbols?:[{addr:addr, name:str, decorated:(str|null), type:enum(import|export|symbol), module:str, ordinal:(int|null)}], count?:int,
+       resolved?:{addr:addr, label:(str|null), module:(str|null), offset:int, symbol:(str|null)}}

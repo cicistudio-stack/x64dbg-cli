@@ -1,0 +1,3 @@
+schema menu
+args: {action?:enum(list|click), id?:int}
+data: {menus:[{id:int, parent:int, plugin:int, name:str, kind:enum(menu|entry|separator), checked:bool, visible:bool, hotkey:(str|null)}]}

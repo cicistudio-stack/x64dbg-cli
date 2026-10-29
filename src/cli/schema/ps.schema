@@ -1,0 +1,3 @@
+schema ps
+args: {}
+data: {processes:[{pid:int, exe:str, title:str, args:str}], count:int}

@@ -1,0 +1,11 @@
+schema dis
+args: {addr?:str, count?:int, until?:str, back?:int, bytes?:bool}
+data: {start:addr, cip:(addr|null), live:bool, count:int, truncated_reason?:enum(unreadable|limit),
+       instructions:[{addr:addr, size:int, bytes?:hex, text:str, kind:enum(normal|branch|stack|invalid), is_cip:bool,
+                      label:(str|null), module:(str|null), comment:(str|null),
+                      bp:(enum(none)|bpkind), bp_disabled:bool, bookmark:bool,
+                      function:enum(none|begin|middle|end|single), loop:enum(none|begin|middle|entry|end|single),
+                      argument:enum(none|begin|middle|end|single),
+                      branch:(null|{target:(addr|null), target_label:(str|null), call:bool, conditional:bool, taken:(bool|null)}),
+                      args:[{type:enum(normal|memory), text:str, value:addr, mem_value:addr}],
+                      xrefs:int, encoding:str, string:(str|null), tail?:bool}]}

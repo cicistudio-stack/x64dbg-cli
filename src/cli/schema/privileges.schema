@@ -1,0 +1,3 @@
+schema privileges
+args: {}
+data: {privileges:[{name:str, state:enum(enabled|disabled|unknown)}]}

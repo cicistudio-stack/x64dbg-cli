@@ -1,0 +1,3 @@
+schema config
+args: {action:enum(get|set|init_script), section?:str, key?:str, value?:str}
+data: {section:(str|null), key:(str|null), value:(str|null)}

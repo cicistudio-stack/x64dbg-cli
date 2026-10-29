@@ -1,0 +1,1 @@
+typedef bpkind = enum(normal|hardware|memory|dll|exception)     // names of BPXTYPE; used by event.bp_type and by dis.bp / addrinfo.bp

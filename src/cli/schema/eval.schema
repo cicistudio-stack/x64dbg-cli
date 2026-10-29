@@ -1,0 +1,3 @@
+schema eval
+args: {expr:str}
+data: {expr:str, value:addr, unsigned:str, signed:str, label:(str|null), string:(str|null)}

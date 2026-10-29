@@ -1,0 +1,3 @@
+schema callargs
+args: {count?:int, convention?:enum(auto|x64)}
+data: {convention:str, args:[{index:int, location:str, value:addr, label:(str|null)}]}

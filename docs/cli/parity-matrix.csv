@@ -1,0 +1,266 @@
+kind,id,gui_label,cli,milestone,status,gap_id,built,note,exercised
+action,actionOpen,"Open (also Recent Files, drag-drop)",`init <file>` / `!init`; positional target; recent files in `!nav`,M1,Full,,yes,,ops; smoke:usage
+action,actionExit,Exit,`!quit` / EOF,M1,Full,,yes,,ops
+action,actionRun,Run,`run` / `!run`,M1,Full,,yes,,ops; smoke:ok
+action,actionPause,Pause,`pause` (out-of-band) / `!pause`,M1,Full,,yes,,ops; smoke:usage
+action,actionRestart,Restart,`!restart`,M2,Full,,yes,,ops
+action,actionClose,Close,`stop` / `!stop`,M1,Full,,yes,,ops; smoke:ok
+action,actionStepInto,Step into,`sti` / `!stepin`,M1,Full,,yes,,ops; smoke:ok
+action,actionStepOver,Step over,`sto` / `!stepover`,M1,Full,,yes,,ops; smoke:ok
+action,actionCommand,Command,every line is a command; `!commands` lists the autocomplete names,M1,Full,,yes,,ops
+action,actionRtr,Execute till return,`rtr` / `!stepout`,M1,Full,,yes,,ops; smoke:ok
+action,actionMemoryMap,Memory Map,`!memmap`,M2,Full,,yes,,ops
+action,actionLog,Log Window,"`output` of every response, `!log`",M1,Full,,yes,,ops
+action,actionAbout,About,none,-,UI,G6,n/a,,n/a
+action,actionScylla,Scylla,`StartScylla` opens a Scylla window,-,Gap,G4,gap,,gap
+action,actionBreakpoints,Breakpoints,"`!bps`, `!bp`, `bplist`",M2,Full,,yes,,ops; smoke:ok
+action,actioneStepInto,Step into (pass all exceptions),`esti`,M1,Native,,yes,,smoke:ok
+action,actioneStepOver,Step over (pass all exceptions),`esto`,M1,Native,,yes,,smoke:ok
+action,actioneRun,Run (pass all exceptions),`erun`,M1,Native,,yes,,smoke:ok
+action,actioneRtr,Execute till return (pass all exceptions),`ertr`,M1,Native,,yes,,smoke:ok
+action,actionScript,Script,"`!script`, `scriptload/scriptrun/scriptexec/scriptcmd`",M3,Full,,yes,,ops; smoke:ok
+action,actionRunSelection,Run until selection,`run <addr>` (what the GUI runs); `!runto`,M1/M2,Full,,yes,,ops; smoke:ok
+action,actionCpu,CPU (show tab),none: there are no tabs; the CPU pane data is `!dis !regs !mem !stack`,-,UI,G3,n/a,,n/a
+action,actionSymbolInfo,Symbol Info,"`!sym`, `!modules`, `symload/symdownload/symunload`, `imageinfo`",M2/M3,Full,,yes,,ops; smoke:ok/skip
+action,actionReferences,References,"`tables` in responses, `!table`",M1,Full,,yes,,ops
+action,actionThreads,Threads,"`!threads`, `!thread`",M2,Full,,yes,,ops
+action,actionSettings,Preferences,"`!config get/set`, `settingset`, `config` natives",M3,Part,,yes,Settings keys are read/written as ini sections; the dialog layout is UI.,ops; smoke:ok/usage
+action,actionStrings,Find Strings,`!strings` (= `strref`),M3,Full,,yes,Without addr the search starts at `cip` (the disassembly selection is only updated asynchronously after a pause).,ops; smoke:ok
+action,actionAppearance,Appearance,none,-,UI,G3,n/a,,n/a
+action,actionCalls,Find Intermodular Calls,`!calls` (= `modcallfind`),M3,Full,,yes,,ops; smoke:ok
+action,actionPatches,Patch file...,"`!patches`, `!patch`",M3,Full,,yes,,ops
+action,actionComments,Comments,`!comments`,M3,Full,,yes,,ops
+action,actionLabels,Labels,`!labels`,M3,Full,,yes,,ops
+action,actionBookmarks,Bookmarks,`!bookmarks`,M3,Full,,yes,,ops
+action,actionFunctions,Functions,`!functions`,M3,Full,,yes,,ops
+action,actionCheckUpdates,Check for Updates,none,-,UI,G6,n/a,,n/a
+action,actionCallStack,Call Stack,`!callstack`,M2,Full,,yes,,ops
+action,actionShortcuts,Hotkeys,none,-,UI,G3,n/a,,n/a
+action,actionDonate,Donate,none,-,UI,G6,n/a,,n/a
+action,actionCalculator,Calculator,`!eval`,M1,Full,,yes,,ops
+action,actionAttach,Attach,`attach .<pid>` / `!attach` / `!ps` (process list),M1/M2/M3,Full,,yes,,ops; smoke:usage
+action,actionDetach,Detach,`detach` / `!detach`,M2,Full,,yes,,ops; smoke:ok
+action,actionChangeCommandLine,Change Command Line,`getcommandline` / `setcommandline`,M1,Native,,yes,,smoke:ok
+action,actionSkipNextInstruction,Skip next instruction,`skip` / `!skip`,M1/M2,Native,,yes,,ops; smoke:ok
+action,actionTopmost,Topmost,none (window property),-,UI,G3,n/a,,n/a
+action,actionReportBug,Report Bug,none,-,UI,G6,n/a,,n/a
+action,actionSource,Source,`!source`,M3,Part,,yes,File text is read by the CLI; file + line lookup uses `GetAddrFromLineEx` per module (`GetAddrFromLine` is a stub in the core).,ops
+action,actionManual,Manual,"`docs/commands/*.md`, `docs/cli/native-commands.md` (G12)",M3,UI,G6,n/a,"Generated: docs/cli/native-commands.md (the debug-only flag is not published by the core, so it is not listed).",n/a
+action,actionFaq,FAQ,none,-,UI,G6,n/a,,n/a
+action,actionSEHChain,SEH Chain,`!seh`,M3,Full,,yes,"x64: the OS chain (TEB ExceptionList) is empty, as in the GUI tab; the op returns an empty list.",ops
+action,actionHideDebugger,Hide debugger (PEB),`HideDebugger`,M1,Native,,yes,,smoke:ok
+action,actionReloadStylesheet,Reload style.css,none,-,UI,G3,n/a,,n/a
+action,actionNotes,Notes,`!notes`,M3,Full,,yes,,ops
+action,actionHandles,"Handles (tabs Handles, Windows, TCP, Heaps, Privileges)","`!handles`, `!windows`, `!tcp`, `!heaps`, `!privileges`",M3,Full,,yes,`!heaps` is empty because the core enumeration is a stub (the GUI tab is empty too); the call returns a warning `heaps_not_enumerated_by_core`.,ops
+action,actionTocnd,Trace over...,"`TraceOverConditional <cond>[,<max steps>[,<log>]]`",M1,Native,,yes,,smoke:ok
+action,actionTicnd,Trace into...,"`TraceIntoConditional <cond>[,...]`",M1,Native,,yes,,smoke:ok
+action,actionTRBit,Mark covered (yes/no),"`!trace set_type --type bit` (`SetTraceRecordType` over the region, then `traceexecute cip`)",M3,Full,,yes,,ops; smoke:ok
+action,actionTRByte,Count hits (up to 63),`!trace set_type --type byte`,M3,Full,,yes,,ops
+action,actionTRWord,Count hits (up to 16383),`!trace set_type --type word`,M3,Full,,yes,,ops
+action,actionTRReset,Reset trace coverage,`!trace reset`,M3,Full,,yes,,ops
+action,actionTRTIBT,Step into until reaching uncovered code,`tibt` (canonical `TraceIntoBeyondTraceCoverage`),M1,Native,,yes,,smoke:ok
+action,actionTRTOBT,Step over until reaching uncovered code,`tobt`,M1,Native,,yes,,smoke:ok
+action,actionTRTIIT,Step into until reaching covered code,`tiit`,M1,Native,,yes,,smoke:ok
+action,actionTRTOIT,Step over until reaching covered code,`toit`,M1,Native,,yes,,smoke:ok
+action,actionTRNone,Disable (trace coverage),`!trace disable`,M3,Full,,yes,,ops
+action,actionRtu,Run to user code,`rtu`,M1,Native,,yes,,smoke:ok
+action,actionRunExpression,Run until expression,`run <expr>` (single-shot breakpoint + run); `!runto`,M1/M2,Full,,yes,,ops; smoke:ok
+action,actionInstrUndo,Undo last instruction,`InstrUndo`,M1,Native,,yes,,smoke:ok
+action,actionCrashDump,Generate crash dump,"not exposed: `MainWindow::crashDump` executes `__debugbreak()` in the x64dbg process itself after a confirmation (`MainWindow.cpp:2213-2229`); the native `minidump` dumps the debuggee, a different feature",M1,Gap,G18,gap,,gap
+action,actionManageFavourite,Manage Favourite Tools...,`!favourites` (list); running tools is G5,M3,Part,G5,yes,,ops
+action,actionStepOverSource,Step over (source),`TraceOverConditional src.line(cip) && !src.disp(cip)` (the exact command of `MainWindow.cpp:356`),M1,Native,,yes,,smoke:ok
+action,actionStepIntoSource,Step into (source),`TraceIntoConditional src.line(cip) && !src.disp(cip)` (`MainWindow.cpp:355`),M1,Native,,yes,,smoke:ok
+action,actionGraph,Graph,`!cfg` (blocks and edges),M3,Part,G1,yes,"Entry defaults to the graph position announced by the core, else `cip` (the last-graph cache of the design is not kept).",ops
+action,actionseStepInto,Step into (swallow exception),`sesti`,M1,Native,,yes,,smoke:ok
+action,actionseStepOver,Step over (swallow exception),`sesto`,M1,Native,,yes,,smoke:ok
+action,actionseRun,Run (swallow exception),`serun`,M1,Native,,yes,,smoke:ok
+action,actionBlog,Blog,none,-,UI,G6,n/a,,n/a
+action,actionAnimateInto,Animate into,"`!animate --command ""StepInto;AnimateWait""` (`MainWindow.cpp:2711`)",M3,Full,,yes,,ops
+action,actionAnimateOver,Animate over,"`!animate --command ""StepOver;AnimateWait""` (`MainWindow.cpp:2717`)",M3,Full,,yes,,ops
+action,actionAnimateCommand,Animate command...,`!animate --command <cmd>`,M3,Full,,yes,,ops
+action,actionSetInitializationScript,System breakpoint scripts,`!config init_script`,M3,Full,,yes,,ops
+action,actionImportSettings,Import settings...,`!config set` per key (merging an ini file is not provided),M3,Part,,yes,,ops
+action,actionCustomizeMenus,Customize menus,none,-,UI,G3,n/a,,n/a
+action,actionImportdatabase,Import database,`dbload <file>`,M1,Native,,yes,,smoke:ok
+action,actionExportdatabase,Export database,`dbsave <file>`,M1,Native,,yes,,smoke:ok
+action,actionPreviousTab,Previous Tab,none (window layout),-,UI,G3,n/a,,n/a
+action,actionNextTab,Next Tab,none (window layout),-,UI,G3,n/a,,n/a
+action,actionPreviousView,Previous View,none (window layout),-,UI,G3,n/a,,n/a
+action,actionNextView,Next View,none (window layout),-,UI,G3,n/a,,n/a
+action,actionHideTab,Hide Tab,none (window layout),-,UI,G3,n/a,,n/a
+action,actionVariables,Variables,"native `varlist` (the table ""Variables"" lands in `tables`)",M1,Native,,yes,,smoke:ok
+action,actionRestartAdmin,Restart as Admin,refused with `E_UNSUPPORTED` (would orphan the pipes); start the CLI elevated,M1,Gap,G13,gap,,gap
+action,actionPlugins,Plugins,opens https://plugins.x64dbg.com (`MainWindow.cpp:2851`); plugin menus are `!menu`,M3,UI,G6,n/a,,n/a
+action,actionTrace,Trace (browser),"`.trace64` reader ops `trace_open/trace_regs/trace_mem/trace_dis/trace_search` (14, M4); recording is `StartTraceRecording`",M4,Gap,G2,gap,Not implemented: milestone M4 (trace-file reader) is outside this run; recording is `!trace start` / `stop`.,gap
+action,actionModules,Modules (Symbols tab),"`!modules`, `!module`",M2/M3,Full,,yes,,ops
+action,action_Theme,Theme (menu),none,-,UI,G3,n/a,,n/a
+action,actionDefaultTheme,Default (theme),none,-,UI,G3,n/a,,n/a
+action,actionDbsave,Save database,`dbsave`,M1,Native,,yes,,smoke:ok
+action,actionDbload,Reload database,`dbload`,M1,Native,,yes,,smoke:ok
+action,actionDbrecovery,Restore backup database,"`dbload bak` (`MainWindow.cpp:368`; `DbLoad` maps the file name `bak` to `<database>.bak`, `database.cpp:168-172`)",M1,Native,,yes,,smoke:ok
+action,actionDbclear,Clear database,`dbclear`,M1,Native,,yes,,smoke:ok
+action,actionAbout_Qt,About Qt,none,-,UI,G6,n/a,,n/a
+action,actionMnemonic_Help,Mnemonic Help,`mnemonichelp <mnemonic>` (log text),M1,Native,,yes,,smoke:ok
+action,actionReleaseNotes,Release Notes,none,-,UI,G6,n/a,,n/a
+action,CPUWidget:actionGoto,Goto (Ctrl+G) in the CPU tabs; only moves the view to an expression,"`!dis <expr>`, `!mem <expr>`, `!stack --addr <expr>` read at that address",M2,Full,,yes,,ops
+action,TraceWidget:actionGoto,Goto (Ctrl+G) in the trace tab,`trace_dis` / `trace_regs` with an index (M4 reader),M4,Gap,G2,gap,,gap
+class,"CPUDisassembly, CPUWidget",`DbgDisasmAt` & co. (3.8),`!dis`,M2,Full,,yes,,ops
+class,CPUSideBar,"`DbgGetBranchDestination`, `DbgIsJumpGoingToExecute`, bp type","`branch`, `bp`, `bookmark` fields of `!dis` rows",M2,Part,,yes,,ops; smoke:ok
+class,"CPURegistersView, RegistersView, EditFloatRegister",`DbgGetRegDumpEx`,"`!regs`, `!setreg` (GPR/flags/segment/debug); vector/x87 edit is G15",M2,Part,G15,yes,,ops
+class,CPUInfoBox,"operand values, string, symbol per selection",`!infobox` (3.8: data; the sentence composition and SSE formatting are presentation),M3,Part,,yes,,ops
+class,CPUArgumentWidget,regs/stack by calling convention,`!callargs`,M3,Full,,yes,,ops
+class,"CPUDump, CPUMultiDump",`DbgMemRead`,"`!mem` (all display formats), dump positions in `!nav`",M3,Full,,yes,,ops
+class,CPUStack,"`DbgMemRead`, `DbgStackCommentGet`",`!stack`,M2,Full,,yes,,ops
+class,WatchView,`DbgGetWatchList`,`!watch`,M3,Full,,yes,,ops
+class,LocalVarsView,operand scan of the current function,"`!locals` (same algorithm, 9.5)",M3,Full,,yes,,ops
+class,"StructWidget, TypeWidget, DisplayTypeDialog","`DbgTypeVisit`, `EnumStructs`","`!types`, `!struct`",M3,Full,,yes,,ops
+class,DisassemblerGraphView,`DbgAnalyzeFunction`,`!cfg`,M3,Part,G1,yes,,ops
+class,"BreakpointsView, EditBreakpointDialog, MessagesBreakpoints, ExceptionRangeDialog","`DbgGetBpList`, `BpRef*`, settings `Exceptions/IgnoreRange`","`!bps`, `!bp` (all kinds and fields incl. log file), `!config` for exception ranges",M2/M3,Full,,yes,,ops
+class,"MemoryMapView, PageMemoryRights","`DbgMemMap`, `GetPageRights/SetPageRights`","`!memmap`, `getpagerights`/`setpagerights`, `bpm`, `alloc`/`free`, `savedata`, `!memwrite --file`, `virtualmod`, `findall`/`reffind` over a region",M2,Full,,yes,,ops; smoke:ok/usage
+class,CallStackView,`GetCallStackByThread`,`!callstack`,M2,Full,,yes,,ops
+class,SEHChainView,`GetSEHChain`,`!seh`,M3,Full,,yes,,ops
+class,ThreadView,`DbgGetThreadList`,"`!threads`, `!thread` (switch, suspend/resume, all, kill, name, priority)",M2,Full,,yes,,ops
+class,HandlesView,`Enum*`,`!handles !windows !tcp !heaps !privileges`,M3,Full,,yes,,ops
+class,"SymbolView, ZehSymbolTable","module list message, `DbgSymbolEnum`","`!modules`, `!sym`, `!module`",M2/M3,Full,,yes,,ops
+class,ReferenceManager,`GUI_REF_*`,"`tables` in responses, `!table`",M1,Full,,yes,,ops
+class,"LogView, LogStatusLabel",`GUI_ADD_MSG_TO_LOG`,"`output`, `!log`",M1,Full,,yes,,ops
+class,"DebugStatusLabel, TimeWastedCounter","state, `DbgGetTimeWastedCounter`","`state` in every response, `!status`",M1,Full,,yes,,ops
+class,ScriptView,"`GUI_SCRIPT_*`, `DbgScript*`",`!script`,M3,Full,,yes,,ops
+class,"SourceView, SourceViewerManager",`GetSourceFromAddr`,`!source`,M3,Part,,yes,,ops
+class,"NotepadView, NotesManager",notes messages,`!notes`,M3,Full,,yes,,ops
+class,"PatchDialog, PatchDialogGroupSelector","`PatchEnum`, `PatchFile`","`!patches`, `!patch`",M3,Full,,yes,,ops
+class,AttachDialog,`GetProcessList`,`!ps`,M3,Full,,yes,,ops
+class,XrefBrowseDialog,`DbgXrefGet`,`!xrefs`,M3,Full,,yes,,ops
+class,AssembleDialog,`AssembleAtEx`,"`!asm`, native `asm`",M3,Full,,yes,,ops; smoke:ok
+class,"GotoDialog, CalculatorDialog",expression evaluation,`!eval`,M1,Full,,yes,,ops
+class,"VirtualModDialog, SystemBreakpointScriptDialog, CodepageSelectionDialog","`virtualmod`, init script, `DbgSetEncodeType`","natives (`virtualmod`, `DataAscii` family), `!config init_script`",M1/M3,Native,,yes,,ops; smoke:ok/usage
+class,SimpleTraceDialog,arguments of the trace commands,`TraceIntoConditional`/`TraceOverConditional` arguments,M1,Native,,yes,,smoke:ok
+class,FavouriteTools,`GUI_ADD_FAVOURITE_*`,`!favourites`,M3,Part,G5,yes,,ops
+class,SettingsDialog,settings store,`!config`,M3,Part,,yes,,ops
+class,CommandLineEdit,command line,stdin,M1,Full,,yes,,-
+class,MainWindow,all actions,11.1,-,Full,,yes,,-
+class,"TraceBrowser, TraceDump, TraceFileDump, TraceFileReader, TraceFileSearch, TraceInfoBox, TraceManager, TraceRegisters, TraceStack, TraceWidget, TraceXrefBrowseDialog",`.trace64` files,M4 reader ops (14),M4,Gap,G2,gap,,gap
+class,DisassemblyPopup,hover preview of `!dis` data,`!dis`,M2,UI,G3,n/a,,n/a
+class,"AppearanceDialog, ShortcutsDialog, CustomizeMenuDialog, ColumnReorderDialog, TabBar, TabWidget, MultiItemsSelectWindow, RichTextItemDelegate","themes, shortcuts, layout",none,-,UI,G3,n/a,,n/a
+class,"AboutDialog, ReleaseNotesDialog, ImageTextBrowser",static text,none,-,UI,G6,n/a,,n/a
+class,SelectFields,choose columns to copy,none (clipboard),-,UI,G11,n/a,,n/a
+class,"BrowseDialog, ComboBoxDialog, LineEditDialog, HexEditDialog, WordEditDialog, HexLineEdit, CloseDialog",input helpers for other actions,the CLI passes the same values as command/op arguments,-,UI,G10,n/a,,n/a
+class,ReferenceView,`GUI_REF_*`,"`tables` in responses, `!table`",M1,Full,,yes,,ops
+class,Disassembly,rendering base of `CPUDisassembly` and the graph/trace views,`!dis` (11.2),M2,Full,,yes,,ops
+class,HexDump,rendering base of `CPUDump`,`!mem` (11.2),M2,Full,,yes,,ops
+class,"SearchListView, StdSearchListView, StdIconSearchListView",search box above a table,"client-side filter of `tables[].rows` / list ops (`limit`, `offset`)",M1,Full,,yes,,-
+class,"AbstractTableView, AbstractStdTable, StdTable, StdIconTable, StdTableSearchList","column widths, selection, scrolling, copy",none (the data of each table is in the op of the owning pane),-,UI,G3 G11,n/a,,n/a
+class,HistoryLineEdit,command line history,stdin (the agent keeps its own history),M1,Full,,yes,,-
+class,ShortcutEdit,key sequence editor,none,-,UI,G3,n/a,,n/a
+class,"LabeledSplitter, LabeledSplitterDetachedWindow",window layout,none,-,UI,G3,n/a,,n/a
+class,"FileLines, AbstractSearchList, HeaderButton, TraceFileReaderInternal","header-only helpers with no `.cpp`: the source-file reader of `SourceView`, the search-list interface, the table header widget, the internal structures of `TraceFileReader` (covered by its row in 11.2)",none,-,UI,G3,n/a,,n/a
+menu,Disassembly,"Binary edit (fill, NOP, paste, edit), Assemble, Patches, Restore selection","`!memwrite`, `Fill`, `!asm`, `!patches`, `!patch --action restore_range`",M3,Full,,yes,,ops; smoke:ok
+menu,Disassembly,"Breakpoint (toggle, hardware, memory, conditional, exception)","`!bp add`, `bp bph bpm`, `SetBreakpointCondition`",M2,Full,,yes,,ops; smoke:ok
+menu,Disassembly,"Follow in dump / disassembler, Goto (expression, start/end of page, previous/next reference, history)",stateless: pass the address to `!dis`/`!mem`/`!eval`/`!memmap`; references: `!xrefs`,M3,Full,,yes,,ops
+menu,Disassembly,"Goto start/end of function, file offset","`!addrinfo` (`function.start/end`), expression `mod.fileoffset(va)`",M3,Full,,yes,,ops
+menu,Disassembly,"Label, comment, bookmark, function/argument/loop add-delete, analysis (module, function, xrefs, advanced), remove type analysis, treat selection / selection head / from selection as (data types)","`lbl`, `cmt`, `bookmark`, `func`, `argumentadd`, `loopadd`, `analyse/cfanal/analxrefs/analadv/analr`, `DataByte..DataMiddle`, `DataUnknown`",M1,Native,,yes,,smoke:ok
+menu,Disassembly,"Find (constant, strings, intermodular calls, pattern, GUID, names, references to selection, asm)","`findall`, `findasm`, `reffind`, `refstr`, `modcallfind`, `findguid`, `ref*` (tables)",M1,Native,,yes,,smoke:ok
+menu,Disassembly,"Copy (address, RVA, file offset, header VA, disassembly, bytes, selection to file)",Data is in `!dis` rows and `!eval mod.rva(va)` / `mod.fileoffset(va)`; copy-to-clipboard and file output belong to the client,M2,UI,G11,n/a,,n/a
+menu,Disassembly,Help on mnemonic,`mnemonichelp`,M1,Native,,yes,,smoke:ok
+menu,Disassembly,"Mnemonic brief display, highlighting mode, edit columns, fold, colour",none (presentation),-,UI,G3,n/a,,n/a
+menu,Disassembly,"Trace coverage (bit/byte/word, reset, disable)",`!trace set_type/reset/disable/info`,M3,Full,,yes,,ops
+menu,Disassembly,"Start trace recording, download symbols for this module","`StartTraceRecording`, `symdownload [mod]`",M1,Native,,yes,,smoke:ok/skip
+menu,Dump,"Binary edit (edit, fill, paste, modify value), Restore selection","`!memwrite`, `Fill`, `!patch --action restore_range`",M3,Full,,yes,,ops; smoke:ok
+menu,Dump,"Follow, Goto (expression, start/end of page, previous/next reference), hardware/memory breakpoints, display modes (hex, ASCII, signed/unsigned/hex integers 8-64 bit, float, double, long double, half float, address, disassembly, cycle views), sync with expression","`!mem` formats, `!dis` for disassembly mode; `bph bpm`; sync-with-expression is a client loop calling `!mem` (G9)",M2,Full,,yes,,ops; smoke:ok
+menu,Dump,"Find pattern, find references, allocate memory, save to a file","`findallmem`, `findall`, `reffindrange`, `alloc`, `savedata`",M1,Native,,yes,,smoke:ok
+menu,Dump,"Extended ASCII, codepage text",`!mem --format hex` returns the raw bytes; the client decodes them,M2,Part,G19,yes,,ops
+menu,Dump,"Copy, file offset, clear, colour",clipboard and presentation,M2,UI,G11 G3,n/a,,n/a
+menu,Stack,"Follow, Goto CSP/CBP/stack frames/expression, Modify, Call-stack comments, breakpoints, Restore selection, Find pattern","`!stack`, `!callstack`, `!memwrite`, `push`/`pop` natives, `!bp`, `!patch`, `findallmem`",M3,Full,,yes,,ops; smoke:ok
+menu,Stack,"Align stack pointer, freeze stack","`!setreg --reg rsp`, `setfreezestack`",M2,Full,,yes,,ops; smoke:ok
+menu,Stack,"Copy, clear, colour, edit columns",clipboard and presentation,M2,UI,G11 G3,n/a,,n/a
+menu,Registers,"Modify, increment/decrement, set to 0/1, toggle flags, follow in dump/disassembly/stack/memory map, hardware breakpoint on register, undo of a register edit (G20), highlight (G3), x87 stack increment/decrement (G15), show FPU/MMX/XMM/YMM/AVX-512, FPU in little endian","`!setreg`, `mov`, `!regs groups=...`; toggling a flag = `!setreg` with the inverse value; vector/x87 edit and x87 TOP edit: G15",M2,Part,G15 G20,yes,,ops; smoke:ok
+menu,Info box,"modify value, follow value, show strings, source line, show references, copy","`!infobox`, `!eval`, `!mem`, `!source`, `!xrefs`",M3,Full,,yes,,ops
+menu,MemoryMapView (22),Follow in Dump / Disassembler / Symbols,"`!mem <addr>`, `!dis <addr>`, `!sym` / `!modules` (stateless navigation)",M2,Full,,yes,,ops
+menu,MemoryMapView (22),Set Page Memory Rights,"native `setpagerights` (read: `getpagerights`, `!memmap`)",M1,Native,,yes,,ops; smoke:ok
+menu,MemoryMapView (22),"Memory Breakpoint with its sub-menus Access / Read / Write / Execute: Singleshoot, Restore, Remove","`!bp add --kind mem --mem_type a|r|w|x [--once] [--restore]`, `!bp delete` (`bpm`, `bpmc`)",M2,Full,,yes,,ops; smoke:ok
+menu,MemoryMapView (22),"Allocate memory, Free memory","native `alloc`, `free`",M1,Native,,yes,,smoke:ok
+menu,MemoryMapView (22),"Go to, Expression","`!eval`, then `!memmap` (client picks the page; stateless navigation)",M2,Full,,yes,,ops
+menu,MemoryMapView (22),Find Pattern...,native `findallmem` (table),M1,Native,,yes,,smoke:ok
+menu,MemoryMapView (22),"Dump Memory to File, Overwrite with Data from File",native `savedata`; `!memwrite --file`,M1/M2,Full,,yes,,ops; smoke:ok
+menu,MemoryMapView (22),Add virtual module,native `virtualmod`,M1,Native,,yes,,smoke:usage
+menu,MemoryMapView (22),Find references to region,native `reffindrange` (table),M1,Native,,yes,,smoke:ok
+menu,MemoryMapView (22),Comment,"native `cmt <addr>,""text""`; `!comments`",M1/M3,Full,,yes,,ops; smoke:ok
+menu,"SymbolView, ZehSymbolTable (17)","Follow in Disassembler / Dump / Memory Map, Follow Entry Point in Disassembler","`!dis`, `!mem`, `!memmap`, entry in `!modules` (stateless navigation)",M2,Full,,yes,,ops
+menu,"SymbolView, ZehSymbolTable (17)",Follow imported address,"`!sym` (import rows carry the IAT slot), then `!mem` / `!eval [slot]`",M2,Full,,yes,,ops
+menu,"SymbolView, ZehSymbolTable (17)","Toggle Breakpoint, Toggle Bookmark",`!bp add` / `!bp delete`; native `bookmark` (`!bookmarks`),M2/M3,Full,,yes,,ops; smoke:ok
+menu,"SymbolView, ZehSymbolTable (17)",Download Symbols for This Module / All Modules,"`!module --action symdownload --module <name>`; all modules: native `symdownload` without argument (`docs/commands`: ""all loaded modules"")",M3,Full,,yes,,ops; smoke:skip
+menu,"SymbolView, ZehSymbolTable (17)","Load library..., Free library","`!module --action loadlib|freelib` (Resume class, 7.4)",M3,Full,,yes,,ops
+menu,"SymbolView, ZehSymbolTable (17)",Mark as user module / system module / party...,`!module --action set_party --party user|system` (`ModSetParty`),M3,Full,,yes,,ops
+menu,"SymbolView, ZehSymbolTable (17)","Help on Symbolic Name, Browse in Explorer",none,-,UI,G16,n/a,,n/a
+menu,"ReferenceView, SearchListView, AbstractStdTable (BasicView; 10 + 1 + 8)",Follow in Disassembler / Dump / Follow API Address,the cell value passed to `!dis` / `!mem` (stateless navigation),M2,Full,,yes,,ops
+menu,"ReferenceView, SearchListView, AbstractStdTable (BasicView; 10 + 1 + 8)","Toggle Breakpoint, Toggle Bookmark","`!bp add|delete`, native `bookmark`",M2/M3,Full,,yes,,ops; smoke:ok
+menu,"ReferenceView, SearchListView, AbstractStdTable (BasicView; 10 + 1 + 8)","Set / Remove breakpoint on all commands, on all api calls",one `!bp` per row; a `batch` of up to 256 requests does it in one round trip,M2,Part,G17,yes,,ops
+menu,"ReferenceView, SearchListView, AbstractStdTable (BasicView; 10 + 1 + 8)","Search..., Copy, Export Table, Line / Cropped Table / Full Table (copy and ""To Log"")",the table is already JSON in `tables` (client filters and exports); `To Log` equals reading `!table`,M1,Full,G11,yes,,ops
+menu,BreakpointsView (10; 16 registrations),Follow breakpoint,`!dis` / `!mem` (stateless navigation),M2,Full,,yes,,ops
+menu,BreakpointsView (10; 16 registrations),"Remove, Disable",`!bp delete` / `!bp disable` (enable: `!bp enable`),M2,Full,,yes,,ops
+menu,BreakpointsView (10; 16 registrations),Edit,`!bp add` fields (`name condition log log_condition command command_condition silent fast_resume`) and the `SetBreakpoint*` natives,M2,Full,,yes,,ops
+menu,BreakpointsView (10; 16 registrations),Reset hit count,`!bp reset_hits` (the `Reset*HitCount` command of the breakpoint's kind),M2,Full,,yes,,ops
+menu,BreakpointsView (10; 16 registrations),"Add DLL breakpoint, Add exception breakpoint",`!bp add --kind dll` / `--kind exception`,M2,Full,,yes,,ops
+menu,BreakpointsView (10; 16 registrations),Copy / Paste breakpoint conditions,"read from `!bps`, set with `!bp` fields on the target breakpoint",M2,Full,G11,yes,,ops
+menu,ThreadView (17),"Switch Thread, Suspend / Resume Thread, Suspend / Resume All Threads, Kill Thread, Set Name",`!thread --action switch|suspend|resume|suspend_all|resume_all|kill|name`,M2,Full,,yes,,ops
+menu,ThreadView (17),"Idle, Lowest, Below Normal, Normal, Above Normal, Highest, Time Critical, Set Priority",`!thread --action priority --value <name>`,M2,Full,,yes,,ops
+menu,ThreadView (17),Go to Thread Entry,`!dis <start>` with `start` from `!threads`,M2,Full,,yes,,ops
+menu,CallStackView (11),Follow Address / To / From,`!dis` / `!mem` (stateless navigation),M2,Full,,yes,,ops
+menu,CallStackView (11),Download Symbols for This Thread,one `symdownload <module>` per module of the frames of `!callstack`,M2/M3,Part,G17,yes,,ops; smoke:skip
+menu,CallStackView (11),Show Suspected Call Stack Frame,`!config set Engine ShowSuspectedCallStack 1`,M3,Full,,yes,,ops
+menu,CallStackView (11),"Follow in Threads, Rename Thread","`!threads`, `!thread --action name`",M2,Full,,yes,,ops
+menu,CallStackView (11),"Highlight by Module / by Symbol, Clear Highlight",none (colour),-,UI,G3,n/a,,n/a
+menu,HandlesView (13),Refresh,run `!handles` / `!windows` / `!tcp` / `!heaps` / `!privileges` again,M3,Full,,yes,,ops
+menu,HandlesView (13),Close handle,native `handleclose`,M1,Native,,yes,,smoke:usage
+menu,HandlesView (13),"Disable / Enable Privilege, Disable / Enable all privileges","native `DisablePrivilege`, `EnablePrivilege` (all: loop over `!privileges`)",M1/M3,Native,,yes,,ops; smoke:ok
+menu,HandlesView (13),"Enable window, Disable window","native `EnableWindow`, `DisableWindow`",M1,Native,,yes,,smoke:usage
+menu,HandlesView (13),"Follow Proc in Disassembler, Follow in Threads",`!dis <wndproc>` from `!windows`; `!threads`,M3,Full,,yes,,ops
+menu,HandlesView (13),Toggle Breakpoint in Proc,`!bp add --target <wndproc>` / `!bp delete`,M3,Full,,yes,,ops
+menu,HandlesView (13),Message Breakpoint,"`!bp add --target <wndproc> --condition ""<expr on the message argument>""` (the dialog only composes a condition string; the argument register depends on the ABI, so the client writes the expression)",M3,Part,,yes,,ops
+menu,HandlesView (13),Focus on Window,none (`SetForegroundWindow` on the agent host's desktop),-,UI,G16,n/a,,n/a
+menu,WatchView (18),"Add..., Delete, Rename, Edit..., Modify...","native `AddWatch`, `DelWatch`, `SetWatchName`, `SetWatchExpression`; value edit via `!memwrite` / `!setreg`",M1,Native,,yes,,ops; smoke:ok
+menu,WatchView (18),"Watchdog sub-menu: Disabled, Changed, Not changed, Is true, Is false","native `SetWatchdog <id>,<mode>`",M1,Native,,yes,,smoke:ok
+menu,WatchView (18),"Type sub-menu: Uint, Int, Float, Ascii, Unicode","native `SetWatchType <id>,<type>`",M1,Native,,yes,,smoke:ok
+menu,"StructWidget, TypeWidget (11)","Follow address / value in Dump, Follow value in Disassembler","`!mem`, `!dis` (stateless navigation)",M3,Full,,yes,,ops
+menu,"StructWidget, TypeWidget (11)","Display type, Reload type, Refresh values",`!struct --type <t> --addr <a>`; native `VisitType` / `DisplayType`,M3,Full,,yes,,ops; smoke:ok
+menu,"StructWidget, TypeWidget (11)","Load JSON, Parse header, Remove, Remove all","native `LoadTypes`, `ParseTypes`, `RemoveType`, `ClearTypes`; list in `!types`",M1,Native,,yes,,ops; smoke:ok/usage
+menu,LocalVarsView (9),Follow in Dump / DWORD in Dump / in Stack / DWORD in Stack / in Memory Map,"`!mem`, `!stack`, `!memmap` with the `addr` / `value` of `!locals`",M3,Full,,yes,,ops
+menu,LocalVarsView (9),Modify Value,`!memwrite`,M2,Full,,yes,,ops
+menu,LocalVarsView (9),Base Register,`!locals --base <reg>`,M3,Full,,yes,,ops
+menu,LocalVarsView (9),Rename,"none (a GUI-side display alias, not stored by the core)",-,UI,G3,n/a,,n/a
+menu,ScriptView (14),"Open..., Load Script, Reload Script, Unload Script",`!script --action load|unload` (reload = unload + load),M3,Full,,yes,,ops
+menu,ScriptView (14),"Toggle BP, Continue here...",`!script --action bp_toggle|set_ip --line n`,M3,Full,,yes,,ops
+menu,ScriptView (14),"Run until selection, Run, Step, Abort",`!script --action run [--line n]|step|abort` (9.5),M3,Full,,yes,,ops
+menu,ScriptView (14),Execute Command...,"`!script --action cmd --command ""...""` (`scriptcmd`)",M3,Full,,yes,,ops; smoke:ok
+menu,ScriptView (14),"Paste, Edit Script",none (editor),-,UI,G3,n/a,,n/a
+menu,SEHChainView (2),"Follow Address, Follow Handler",`!dis` / `!mem` with fields of `!seh`,M3,Full,,yes,,ops
+menu,SourceView (4),Go to line,`!source --line n`,M3,Full,,yes,,ops
+menu,SourceView (4),"Open source file, Show source file in directory",none (shell),-,UI,G16,n/a,,n/a
+menu,XrefBrowseDialog (18),"Toggle Breakpoint, Breakpoint sub-menus (Hardware, Access / Write; Memory, Access / Write; Byte / Word / Dword / Qword, Remove Hardware, Singleshoot, Restore on hit, Remove Memory)",`!bp add --kind hw|mem ...` on the xref address from `!xrefs`,M2/M3,Full,,yes,,ops
+menu,XrefBrowseDialog (18),"Toggle breakpoints on all xrefs, Selected xref, All xrefs",one `!bp` per row of `!xrefs` (`batch`),M3,Part,G17,yes,,ops
+menu,DisassemblerGraphView (23),"Follow in Disassembler, Xrefs..., Expression, Previous, Next, Go to, Help on mnemonic, Refresh","`!dis`, `!xrefs`, `!eval`, `mnemonichelp`, `!cfg`",M3,Full,,yes,,ops; smoke:ok
+menu,DisassemblerGraphView (23),"Highlighting mode, Zoom 100%, Fit to window, Overview, Summary, Narrow, Medium, Wide, Layout, Detach, Sync with",none (graph presentation),-,UI,G1,n/a,,n/a
+menu,DisassemblerGraphView (23),"Copy image, Save as image",none (rendering),-,Gap,G1,gap,,gap
+menu,RegistersView (23),"Change view, Display ST(x) / x87rX / MMX, Hexadecimal, Float, Double, Signed / Unsigned / Hexadecimal Word / Dword / Qword, Always show maximum vector length, Always show all AVX-512 registers","`!regs --groups fpu,mmx,xmm,ymm,zmm,opmask` returns raw bytes (`hex`) for every register; the display formats are derived by the client",M2,Full,,yes,,ops
+menu,RegistersView (23),"Copy value, Copy floating point value, Copy Symbol Value, Copy all registers, Change SIMD Register Display Mode",the values are in `!regs` (raw `hex` of every register); the symbol of a value is `!eval` (`label`); the display mode is presentation,M2,Full,G11 G3,yes,,ops
+menu,LogView (14),"Redirect Log..., Stop Redirection",native `RedirectLog <file>` / `StopRedirectLog` (`x64dbg.cpp:467-468`),M1,Native,,yes,,smoke:ok
+menu,LogView (14),"Disable Logging, Enable Logging","native `DisableLog` / `EnableLog` (`x64dbg.cpp:463-464`; the host honours them, 7.1)",M1,Native,,yes,,smoke:ok
+menu,LogView (14),Save,"native `SaveLog <file>` (`x64dbg.cpp:466`; writes the log ring as UTF-8, 7.1); the same text is `!log`",M1,Native,,yes,,ops; smoke:ok
+menu,LogView (14),Clear,"native `ClearLog` (`x64dbg.cpp:465`; the host records it and keeps the ring, `!log --clear` resets it, 7.1)",M1,Native,,yes,,ops; smoke:ok
+menu,LogView (14),"Copy, Paste, Select All, Find, Find Next Occurence, Find Previous Occurence, Auto Scrolling",none (editor mechanics; the client searches the text of `!log`),-,UI,G11,n/a,,n/a
+menu,LogView (14),"Copy To Notes: Global, Debuggee",`!notes --action set --scope global|debuggee --text ...`,M3,Full,,yes,,ops
+menu,AttachDialog (2),"Attach, Refresh",`!ps`; `attach .<pid>`,M3,Full,,yes,,ops; smoke:usage
+menu,MainWindow (4),"favourite-tool entries, Manage Favourite Tools...",`!favourites`,M3,Part,G5,yes,,ops
+menu,MainWindow (4),"Languages, More Commands",none (the GUI language list and an overflow sub-menu for extra commands),-,UI,G3,n/a,,n/a
+menu,MenuBuilder (1),More commands,none (overflow sub-menu that the menu builder creates when a menu has too many entries),-,UI,G3,n/a,,n/a
+menu,"AppearanceDialog (2), LabeledSplitter (1)","Default Value, Current Setting, Detach",none,-,UI,G3,n/a,,n/a
+menu,HexDump (2),"Selected lines, Address (copy)",none (clipboard),-,UI,G11,n/a,,n/a
+menu,"CommonActions (22; shared context-menu entries of the CPU disassembly, dump, stack, graph, memory map and symbol panes)","Follow in Disassembler / Dump / Stack / Memory Map, Follow DWORD (QWORD) in Disassembler / Dump / Current Dump, Dump 1-5","`!dis`, `!mem`, `!stack`, `!memmap` (stateless navigation; for the DWORD forms read `[addr]` with `!mem` or `!eval` first)",M2,Full,,yes,,ops
+menu,"CommonActions (22; shared context-menu entries of the CPU disassembly, dump, stack, graph, memory map and symbol panes)",Graph,`!cfg` (the native `graph` only loads the GUI graph view),M3,Full,,yes,,ops; smoke:ok
+menu,"CommonActions (22; shared context-menu entries of the CPU disassembly, dump, stack, graph, memory map and symbol panes)",Display type at <addr>,"`!struct --type <t> --addr <a>`, native `DisplayType`",M3,Full,,yes,,ops; smoke:ok
+menu,"CommonActions (22; shared context-menu entries of the CPU disassembly, dump, stack, graph, memory map and symbol panes)","Breakpoint: Toggle, Edit / Set Conditional Breakpoint, Set Hardware on Execution, Remove Hardware, Replace Slot n","`!bp add|delete` (native `bp bc bphws bphwc`); replace slot = `!bp delete` of the slot's id from `!bps`, then `!bp add --kind hw` (what `CommonActions::setHwBpAt` does)",M2,Full,,yes,,ops; smoke:ok
+menu,"CommonActions (22; shared context-menu entries of the CPU disassembly, dump, stack, graph, memory map and symbol panes)","Label Current Address, Comment, Toggle Bookmark","native `lbl`, `cmt`, `bookmarkset` / `bookmarkdel`",M1,Native,,yes,,smoke:ok
+menu,"CommonActions (22; shared context-menu entries of the CPU disassembly, dump, stack, graph, memory map and symbol panes)",Set RIP Here,"native `cip=<addr>` (the command the GUI runs, `setNewOriginHereActionSlot`), `!setreg --reg rip`",M2,Full,,yes,,ops
+menu,"CommonActions (22; shared context-menu entries of the CPU disassembly, dump, stack, graph, memory map and symbol panes)",Create New Thread Here,"native `createthread <addr>,<arg>`",M1,Native,,yes,,smoke:ok
+menu,"CommonActions (22; shared context-menu entries of the CPU disassembly, dump, stack, graph, memory map and symbol panes)",Watch DWORD (QWORD),"native `AddWatch ""[<addr>]"",""uint""` (list: `!watch`, M3)",M1,Native,,yes,,ops; smoke:ok
+menu,"TraceBrowser (33), TraceDump (39), TraceStack (13), TraceRegisters (5), TraceInfoBox (1), TraceWidget (1), TraceXrefBrowseDialog (3)",all entries,"M4 reader ops `trace_open`, `trace_regs`, `trace_mem`, `trace_dis`, `trace_search`",M4,Gap,G2,gap,,gap

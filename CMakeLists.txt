@@ -1143,6 +1143,112 @@ if(NOT CMKR_VS_STARTUP_PROJECT)
 	set_property(DIRECTORY ${PROJECT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT headless)
 endif()
 
+# Target: cli
+set(cli_SOURCES
+	cmake.toml
+	"src/cli/app.h"
+	"src/cli/disasm_row.cpp"
+	"src/cli/disasm_row.h"
+	"src/cli/events.cpp"
+	"src/cli/events.h"
+	"src/cli/host.cpp"
+	"src/cli/host.h"
+	"src/cli/host_exports.cpp"
+	"src/cli/io.cpp"
+	"src/cli/io.h"
+	"src/cli/json.cpp"
+	"src/cli/json.h"
+	"src/cli/main.cpp"
+	"src/cli/options.cpp"
+	"src/cli/options.h"
+	"src/cli/protocol.cpp"
+	"src/cli/protocol.h"
+	"src/cli/selftest.cpp"
+	"src/cli/session.cpp"
+	"src/cli/session.h"
+	"src/cli/util.cpp"
+	"src/cli/util.h"
+	"src/cli/views.cpp"
+	"src/cli/views.h"
+	"src/cli/views_bp.cpp"
+	"src/cli/views_db.cpp"
+	"src/cli/views_disasm.cpp"
+	"src/cli/views_info.cpp"
+	"src/cli/views_mem.cpp"
+	"src/cli/views_misc.cpp"
+	"src/cli/views_os.cpp"
+	"src/cli/views_regs.cpp"
+	"src/cli/views_run.cpp"
+	"src/cli/views_stack.cpp"
+	"src/cli/views_threads.cpp"
+	"src/headless/signaturecheck.cpp"
+	"src/headless/stringutils.cpp"
+	"src/headless/stringutils.h"
+)
+
+add_executable(cli)
+
+target_sources(cli PRIVATE ${cli_SOURCES})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${cli_SOURCES})
+
+target_compile_definitions(cli PRIVATE
+	NOMINMAX
+)
+
+target_compile_features(cli PRIVATE
+	cxx_std_17
+)
+
+if(NOT TARGET bridge)
+	message(FATAL_ERROR "Target \"bridge\" referenced by \"cli\" does not exist!")
+endif()
+
+if(NOT TARGET zydis_wrapper)
+	message(FATAL_ERROR "Target \"zydis_wrapper\" referenced by \"cli\" does not exist!")
+endif()
+
+target_link_libraries(cli PRIVATE
+	bridge
+	zydis_wrapper
+	winmm
+)
+
+if(MSVC) # msvc
+	target_link_options(cli PRIVATE
+		"/LARGEADDRESSAWARE"
+		"/NOIMPLIB"
+		"/NOEXP"
+	)
+endif()
+
+add_dependencies(cli
+	exe
+)
+
+if(CMAKE_SIZEOF_VOID_P EQUAL 4) # x86
+	set_target_properties(cli PROPERTIES
+		OUTPUT_NAME
+			x32dbg-cli
+	)
+endif()
+
+if(CMAKE_SIZEOF_VOID_P EQUAL 8) # x64
+	set_target_properties(cli PROPERTIES
+		OUTPUT_NAME
+			x64dbg-cli
+	)
+endif()
+
+set_target_properties(cli PROPERTIES
+	UNITY_BUILD
+		OFF
+)
+
+get_directory_property(CMKR_VS_STARTUP_PROJECT DIRECTORY ${PROJECT_SOURCE_DIR} DEFINITION VS_STARTUP_PROJECT)
+if(NOT CMKR_VS_STARTUP_PROJECT)
+	set_property(DIRECTORY ${PROJECT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT cli)
+endif()
+
 # Target: launcher
 if(CMAKE_SIZEOF_VOID_P EQUAL 4) # x86
 	set(launcher_SOURCES

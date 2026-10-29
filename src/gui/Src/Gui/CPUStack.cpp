@@ -581,11 +581,6 @@ void CPUStack::stackDumpAt(duint addr, duint csp)
         }
         BridgeFree(callstack.entries);
     }
-    if(!addr)
-    {
-        reloadData();
-        return;
-    }
     bool isInvisible;
     isInvisible = (addr < mMemPage->va(getTableOffsetRva())) || (addr >= mMemPage->va(getTableOffsetRva() + getViewableRowsCount() * getBytePerRowCount()));
 
@@ -640,7 +635,7 @@ void CPUStack::disasmSelectionChanged(duint parVA)
         {
             if(arg.value >= mMemPage->getBase() && arg.value < mMemPage->getBase() + mMemPage->getSize())
             {
-                if(Config()->getBool("Gui", "AutoFollowInStack") && !bStackFrozen)
+                if(Config()->getBool("Gui", "AutoFollowInStack"))
                 {
                     //TODO: When the stack is unaligned?
                     stackDumpAt(arg.value & (~(sizeof(void*) - 1)), mCsp);

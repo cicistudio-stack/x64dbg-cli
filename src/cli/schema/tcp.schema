@@ -1,0 +1,3 @@
+schema tcp
+args: {}
+data: {connections:[{local:str, local_port:int, remote:str, remote_port:int, state:str}], count:int}

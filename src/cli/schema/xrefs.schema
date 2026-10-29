@@ -1,0 +1,3 @@
+schema xrefs
+args: {addr:str}
+data: {addr:addr, count:int, xrefs:[{from:addr, type:enum(data|jmp|call), from_label:(str|null), text:str}]}

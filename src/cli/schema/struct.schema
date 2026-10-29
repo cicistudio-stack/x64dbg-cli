@@ -1,0 +1,4 @@
+schema struct
+args: {type:str, addr:str}
+data: {root:node}
+typedef node = {name:str, type:str, offset:int, size:int, value:(str|null), children:[node]}

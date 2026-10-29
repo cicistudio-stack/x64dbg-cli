@@ -1,0 +1,11 @@
+schema regs
+args: {groups?:str}
+data: {thread:int,
+       gpr?:{<name>:addr},
+       flags?:{eflags:addr, cf:bit, pf:bit, af:bit, zf:bit, sf:bit, tf:bit, if:bit, df:bit, of:bit},
+       seg?:{cs:u16, ds:u16, es:u16, fs:u16, gs:u16, ss:u16},
+       dbg?:{dr0:addr, dr1:addr, dr2:addr, dr3:addr, dr6:addr, dr7:addr},
+       fpu?:{control:u16, status:u16, tag:u16, top:int, mxcsr:u32,
+             st:[{name:str, hex:str, tag:enum(valid|zero|special|empty), value:str}]},
+       mmx?:[addr], xmm?:[{name:str, hex:str}], ymm?:[{name:str, hex:str}], zmm?:[{name:str, hex:str}], opmask?:[addr],
+       last_error:{code:u32, name:(str|null)}, last_status:{code:u32, name:(str|null)}}

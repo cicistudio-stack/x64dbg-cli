@@ -233,7 +233,6 @@ private:
 
         QWidget* parent = nullptr;
         QMenu* mMenu = nullptr;
-        QAction* placeholder = nullptr;
         int hMenu = -1;
         int hParentMenu = -1;
         bool globalMenu = false;
@@ -252,7 +251,6 @@ private:
     QString nestedMenuEntryDescription(const MenuEntryInfo & entry);
     void clearMenuHelper(int hMenu, bool markAsDeleted);
     void clearMenuImpl(int hMenu, bool erase);
-    void updatePluginMenuState(int hMenu);
 
     bool bCanClose;
     bool bExitWhenDetached;

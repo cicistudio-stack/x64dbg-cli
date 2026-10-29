@@ -1,0 +1,3 @@
+schema native
+args: {cmd:str}
+data: null

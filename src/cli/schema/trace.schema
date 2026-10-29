@@ -1,0 +1,4 @@
+schema trace
+args: {action:enum(info|set_type|reset|disable|start|stop), addr?:str, type?:enum(bit|byte|word), file?:str}
+data: {addr?:addr, region?:{base:addr, size:int}, pages?:int, record_type?:enum(none|bit|byte|word),
+       hit_count?:int, byte_type?:str, recording?:bool}

@@ -11,7 +11,7 @@ static void GuiAddLogMessageAsync(_In_z_ const char* msg)
     static StringConcatTaskThread_<void(*)(const std::string &)> task([](const std::string & msg)
     {
         GuiAddLogMessage(msg.c_str());
-    });
+    }, BridgeIsHeadless() ? 5 : TASK_THREAD_DEFAULT_SLEEP_TIME);
     task.WakeUp(msg);
 }
 
@@ -20,7 +20,7 @@ static void GuiAddLogMessageHtmlAsync(_In_z_ const char* msg)
     static StringConcatTaskThread_<void(*)(const std::string &)> task([](const std::string & msg)
     {
         GuiAddLogMessageHtml(msg.c_str());
-    });
+    }, BridgeIsHeadless() ? 5 : TASK_THREAD_DEFAULT_SLEEP_TIME);
     task.WakeUp(msg);
 }
 

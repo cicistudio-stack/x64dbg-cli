@@ -1,0 +1,3 @@
+schema log
+args: {from?:int, tail?:int, clear?:bool}
+data: {text:str, from:int, next:int, truncated:bool}

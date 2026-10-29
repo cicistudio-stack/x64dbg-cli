@@ -1,0 +1,3 @@
+schema memwrite
+args: {addr:str, hex?:str, ascii?:str, utf16?:str, file?:str, patch?:bool}
+data: {addr:addr, written:int, patched:bool}

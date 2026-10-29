@@ -1,0 +1,3 @@
+schema interrupt
+args: {}
+data: {interrupted:bool}

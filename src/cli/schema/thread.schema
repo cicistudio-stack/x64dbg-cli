@@ -1,0 +1,3 @@
+schema thread
+args: {action:enum(switch|suspend|resume|suspend_all|resume_all|kill|name|priority|create), tid?:int, value?:str}
+data: null

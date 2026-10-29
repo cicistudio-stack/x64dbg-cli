@@ -1,0 +1,3 @@
+schema quit
+args: {detach?:bool}
+data: {shutting_down:bool}

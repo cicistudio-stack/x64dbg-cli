@@ -1,0 +1,3 @@
+schema modules
+args: {filter?:str}
+data: {modules:[{name:str, base:addr, size:int, path:str, entry:addr, party:enum(user|system), symbols:enum(unloaded|loading|loaded), is_main:bool}], count:int}

@@ -1,0 +1,3 @@
+schema source
+args: {addr?:str, file?:str, line?:int, context?:int}
+data: {addr:(addr|null), file:str, line:int, lines:[{n:int, text:str}]}

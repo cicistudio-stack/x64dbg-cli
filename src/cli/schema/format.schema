@@ -1,0 +1,3 @@
+schema format
+args: {template:str}
+data: {text:str}

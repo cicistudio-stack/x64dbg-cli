@@ -1,0 +1,4 @@
+schema script
+args: {action:enum(load|unload|run|step|abort|state|lines|bp_toggle|bp_get|set_ip|exec|cmd), file?:str, line?:int, command?:str}
+data: {lines?:[{n:int, text:str, type:enum(command|branch|label|comment|empty)}], finished?:bool, ip?:int, title?:str, info?:str, messages?:[str], errors?:[str],
+       branch?:(null|{start:int, end:int, type:str, dest:int, label:str}), bp?:bool}

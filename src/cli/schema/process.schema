@@ -1,0 +1,3 @@
+schema process
+args: {}
+data: {pid:int, path:str, name:str, cmdline:(str|null), base:addr, entry:addr, peb:addr, teb:addr, elevated:(bool|null), debugger_elevated:bool}

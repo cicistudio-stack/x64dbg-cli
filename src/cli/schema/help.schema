@@ -1,0 +1,3 @@
+schema help
+args: {topic?:str}
+data: {ops:[{name:str, milestone:enum(M1|M2|M3|M4), precondition:enum(any|debugging|paused), usage:str}]}

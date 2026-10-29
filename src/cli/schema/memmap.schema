@@ -1,0 +1,4 @@
+schema memmap
+args: {filter?:str}
+data: {pages:[{base:addr, size:int, state:enum(commit|reserve|free), type:enum(private|image|mapped),
+               protect:str, alloc_base:addr, alloc_protect:str, info:str, module:(str|null), section:(str|null)}], count:int}

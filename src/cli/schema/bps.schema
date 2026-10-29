@@ -1,0 +1,11 @@
+schema bps
+args: {kind?:enum(all|sw|hw|mem|dll|exception)}
+typedef bpentry = {id:str, kind:enum(sw|hw|mem|dll|exception), addr:addr, label:(str|null), module:(str|null), name:str,
+                   enabled:bool, active:bool, singleshoot:bool, silent:bool, fast_resume:bool, hit_count:int,
+                   break_condition:str, log_text:str, log_condition:str, command_text:str, command_condition:str,
+                   log_file:(str|null),
+                   hw?:{kind:enum(access|write|execute), size:int, slot:int},
+                   mem?:{kind:enum(access|read|write|execute)},
+                   dll?:{name:str, event:enum(load|unload|all)},
+                   exception?:{chance:enum(first|second|all), code:addr}}
+data: {breakpoints:[bpentry], count:int}

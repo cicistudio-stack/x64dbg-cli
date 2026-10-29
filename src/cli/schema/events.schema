@@ -1,0 +1,3 @@
+schema events
+args: {since?:int, limit?:int}
+data: {events:[event], next_seq:int}

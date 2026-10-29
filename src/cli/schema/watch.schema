@@ -1,0 +1,4 @@
+schema watch
+args: {}
+data: {watches:[{id:int, name:str, expression:str, type:enum(uint|int|float|ascii|unicode|invalid), mode:enum(disabled|istrue|isfalse|changed|unchanged),
+                 value:addr, triggered:bool}], count:int}

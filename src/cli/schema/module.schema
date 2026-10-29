@@ -1,0 +1,3 @@
+schema module
+args: {action:enum(set_party|loadlib|freelib|symdownload|symload|symunload), module?:(str|int), path?:str, party?:enum(user|system)}
+data: null

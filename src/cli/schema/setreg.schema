@@ -1,0 +1,3 @@
+schema setreg
+args: {reg:str, value:str}
+data: {reg:str, value:addr}

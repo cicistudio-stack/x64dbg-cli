@@ -1,0 +1,3 @@
+schema init run stepin stepover stepout runto pause stop restart attach detach skip
+args: {file?:str, args?:str, cwd?:str, count?:int, addr?:str, pid?:int, pause?:bool}
+data: null

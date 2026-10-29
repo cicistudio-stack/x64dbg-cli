@@ -1,0 +1,4 @@
+schema cfg
+args: {entry?:str}
+data: {entry:addr, nodes:[{start:addr, end:addr, brtrue:addr, brfalse:addr, terminal:bool, split:bool, indirectcall:bool,
+                           icount:int, exits:[addr], instrs:[{addr:addr, hex:hex, text:str}]}]}

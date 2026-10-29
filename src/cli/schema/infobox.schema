@@ -1,0 +1,6 @@
+schema infobox
+args: {addr?:str}
+data: {addr:addr, jump:(null|{conditional:bool, taken:(bool|null)}),
+       operands:[{index:int, text:str, value:addr, mem_value:(addr|null), string:(str|null), label:(str|null)}],
+       location:{label:(str|null), module:(str|null), section:(str|null), rva:(int|null), file_offset:(int|null)},
+       comment:(str|null), source:(null|{file:str, line:int})}

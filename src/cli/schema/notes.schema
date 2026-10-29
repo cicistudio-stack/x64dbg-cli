@@ -1,0 +1,3 @@
+schema notes
+args: {action?:enum(get|set), scope?:enum(global|debuggee), text?:str}
+data: {global:str, debuggee:str}

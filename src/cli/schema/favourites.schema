@@ -1,0 +1,3 @@
+schema favourites
+args: {}
+data: {tools:[{path:str, description:str}], commands:[{command:str, shortcut:str}]}

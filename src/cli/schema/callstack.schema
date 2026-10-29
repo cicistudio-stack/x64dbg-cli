@@ -1,0 +1,4 @@
+schema callstack
+args: {thread?:str}
+data: {threads:[{tid:int, frames:[{index:int, addr:addr, from:addr, to:addr, comment:str, party:enum(user|system),
+                                   from_label:(str|null), to_label:(str|null)}]}]}

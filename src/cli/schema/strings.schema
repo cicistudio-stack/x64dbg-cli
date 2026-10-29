@@ -1,0 +1,3 @@
+schema strings calls ptrs
+args: {addr?:str, size?:str}
+data: {table:table}

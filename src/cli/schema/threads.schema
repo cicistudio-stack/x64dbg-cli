@@ -1,0 +1,5 @@
+schema threads
+args: {}
+data: {current_tid:int, threads:[{index:int, tid:int, name:(str|null), handle:addr, start:addr, teb:addr, cip:addr, cip_label:(str|null),
+                                  suspend_count:int, priority:str, wait_reason:str, last_error:u32,
+                                  user_time_ms:int, kernel_time_ms:int, cycles:str, creation_time:str, is_current:bool, is_main:bool}]}

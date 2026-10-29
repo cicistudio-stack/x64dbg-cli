@@ -1,0 +1,5 @@
+schema nav
+args: {}
+data: {disasm:(addr|null), cip:(addr|null), dump:[addr], stack:(addr|null), csp:(addr|null), graph:(addr|null),
+       memmap:(addr|null), symmod:(addr|null), title:(str|null), recent_files:[str],
+       selection:{disasm:(null|{start:addr, end:addr}), dump:(null|{start:addr, end:addr}), stack:(null|{start:addr, end:addr})}}

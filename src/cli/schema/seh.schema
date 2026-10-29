@@ -1,0 +1,3 @@
+schema seh
+args: {}
+data: {chain:[{addr:addr, handler:addr, handler_label:(str|null)}]}

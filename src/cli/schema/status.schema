@@ -1,0 +1,6 @@
+schema status
+args: {}
+data: {process:(null|{path:str, name:str, base:addr, entry:(addr|null)}), csp:(addr|null),
+       last_exception:(null|{code:addr, name:(str|null), address:addr, first_chance:bool}),
+       last_event:(null|{seq:int, type:str}),
+       time_wasted_ms:int, engine:str, userdir:str, cli:{version:str, protocol:int}, ref_progress:(null|int)}

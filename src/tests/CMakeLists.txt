@@ -187,6 +187,7 @@ set(X64DBG_STANDARD_TESTS
     bp_unloaded_module
     trace_cmd_condition
     database_callbacks
+    cli_target
 )
 
 foreach(test_name IN LISTS X64DBG_STANDARD_TESTS)
@@ -196,6 +197,12 @@ endforeach()
 x64dbg_add_test(
     NAME attach_pause
     TARGET_LINK_LIBRARIES user32
+)
+
+x64dbg_add_test(
+    NAME cli_target_admin
+    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/cli_target"
+    TARGET_LINK_OPTIONS "LINKER:/MANIFESTUAC:level='requireAdministrator'"
 )
 
 x64dbg_add_membp_test()

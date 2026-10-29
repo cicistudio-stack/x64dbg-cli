@@ -1,0 +1,5 @@
+schema mem
+args: {addr:str, size?:int, format?:enum(hex|ascii|utf16|int8|int16|int32|int64|uint8|uint16|uint32|uint64|hex8|hex16|hex32|hex64|float|double|half|ldouble|ptr), cols?:int}
+data: {addr:addr, size:int, format:str, live:bool, module:(str|null), section:(str|null), label:(str|null),
+       hex:hex, ascii:str, rows:[{addr:addr, hex:str, ascii:str}],
+       items:[{addr:addr, value:str, label?:(str|null)}], unreadable:[{addr:addr, size:int}], truncated:bool, next_addr:(addr|null)}

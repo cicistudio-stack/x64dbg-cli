@@ -1,0 +1,3 @@
+schema heaps
+args: {}
+data: {heaps:[{addr:addr, size:int, flags:u32}], count:int}

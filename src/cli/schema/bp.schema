@@ -1,0 +1,6 @@
+schema bp
+args: {action:enum(add|delete|enable|disable|reset_hits), id?:str, kind?:enum(sw|hw|mem|dll|exception), target?:str,
+       all?:bool, once?:bool, name?:str, condition?:str, log?:str, log_condition?:str, command?:str, command_condition?:str,
+       silent?:bool, fast_resume?:bool, hw_type?:enum(x|r|w), size?:int, mem_type?:enum(a|r|w|x), restore?:bool,
+       dll_event?:enum(load|unload|all), chance?:enum(first|second|all)}
+data: {breakpoint:(null|bpentry), deleted?:int, changed?:int}

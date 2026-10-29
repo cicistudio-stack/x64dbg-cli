@@ -1,0 +1,4 @@
+schema stack
+args: {addr?:str, count?:int}
+data: {csp:(addr|null), cbp:(addr|null), live:bool,
+       rows:[{addr:addr, offset:int, value:addr, comment:(str|null), label:(str|null), is_csp:bool, is_cbp:bool}]}

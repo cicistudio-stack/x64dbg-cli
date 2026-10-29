@@ -1,0 +1,3 @@
+schema patch
+args: {action:enum(export|restore|restore_range), file?:str, addr?:str, end?:str, module?:str}
+data: {written?:int, restored?:int, error:(str|null)}

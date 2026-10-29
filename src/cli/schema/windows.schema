@@ -1,0 +1,4 @@
+schema windows
+args: {limit?:int, offset?:int}
+data: {windows:[{handle:addr, parent:addr, tid:int, thread_name:(str|null), style:u32, style_ex:u32, wndproc:addr, enabled:bool,
+                 rect:{left:int, top:int, right:int, bottom:int}, title:str, class:str}], count:int}

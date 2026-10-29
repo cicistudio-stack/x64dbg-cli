@@ -1,0 +1,20 @@
+hello    = {type:"hello", v:int, tool:str, version:str, arch:enum(x64|x32), pid:int, userdir:str,
+            capabilities:{events:enum(full|degraded), engine:enum(titan|gleebug|static), ops:[str], native_commands:int, oob:[str]}}
+request  = {id?:(int|str), (cmd:str | op:str, args?:obj | batch:[request]), timeout_ms?:int, wait?:enum(auto|never|always),
+            on_timeout?:enum(keep|pause|stop), max_output?:int, max_response_bytes?:int, max_rows?:int, max_events?:int, settle_ms?:int, pause_settle_ms?:int,
+            vars?:[str], stop_on_error?:bool}
+response = {type:"response", v:int, id:(int|str|null), cmd?:str, op?:str, args?:obj, ok:bool,
+            error:(null|{code:enum(E_PARSE|E_UNKNOWN_OP|E_BAD_ARG|E_TOO_LONG|E_NOT_DEBUGGING|E_RUNNING|E_COMMAND_FAILED|E_MEMORY|E_TIMEOUT|E_BUSY|E_UNSUPPORTED|E_SHUTDOWN|E_INTERNAL),
+                         message:str, detail:(null|obj)}),
+            output:str, data:(null|obj), tables:[table], vars:obj, state:state, wait:wait, events:[event], events_next_seq?:int, warnings:[str],
+            results?:[response-body], truncated:bool, meta:{elapsed_ms:int, log_end:int}}
+state    = {status:enum(none|starting|running|paused|stopped), debugging:bool, pid:(int|null), tid:(int|null),
+            cip:(addr|null), cip_label:(str|null), module:(str|null), seq:int, exit_code:(int|null),
+            stop:(null|{reason:enum(breakpoint|exception|system_breakpoint|step|run_to_user|trace_end|dll_load|dll_unload|thread_start|thread_end|debug_string|loadlib|freelib|pause|unknown), bp?:addr, hint?:[str],
+                        exception?:{code:addr, address:addr}})}
+wait     = {waited:bool, reason:enum(paused|stopped|running|timeout|interrupted|shutdown|not_resumed|already_running|not_running|none),
+            timed_out:bool, elapsed_ms:int}
+table    = {id:int, name:str, columns:[str], rows:[[str]], total_rows:int, truncated:bool, actions:[{title:str, command:str}]}
+event    = (see below: the union `event` of section 8.3, one alternative per row of the table in 7.5)
+unsolicited = {type:"event", v:int, event:event}      fatal = {type:"fatal", v:int, code:str, message:str}
+response-body = response without the keys `type` and `v`   (the element type of `results` in a `batch` reply)

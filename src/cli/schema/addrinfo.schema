@@ -1,0 +1,5 @@
+schema addrinfo
+args: {addr:str}
+data: {addr:addr, label:(str|null), comment:(str|null), bookmark:bool, module:(str|null),
+       function:(null|{start:addr, end:addr}), loop:enum(none|begin|middle|entry|end|single), argument:enum(none|begin|middle|end|single),
+       bp:(enum(none)|bpkind), color:(u32|null), encoding:str}

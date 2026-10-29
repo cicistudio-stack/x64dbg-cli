@@ -1,0 +1,19 @@
+event = ( {seq:int, type:enum(session_started), path:str}
+        | {seq:int, type:enum(process_created), pid:int, base:addr, path:str}
+        | {seq:int, type:enum(process_exited), exit_code:int}
+        | {seq:int, type:enum(session_stopped|system_breakpoint|stepped|pause_requested)}
+        | {seq:int, type:enum(thread_created), tid:int, start:addr}
+        | {seq:int, type:enum(thread_exited), tid:int, exit_code:int}
+        | {seq:int, type:enum(module_loaded|module_unloaded), name:str, base:addr}
+        | {seq:int, type:enum(breakpoint_hit), bp_type:bpkind, addr:addr, name:str, hit_count:int, module:(str|null)}
+        | {seq:int, type:enum(exception), code:addr, address:addr, first_chance:bool, name:(str|null)}
+        | {seq:int, type:enum(debug_string), text:str}
+        | {seq:int, type:enum(paused), reason:str}
+        | {seq:int, type:enum(resumed), synthetic?:bool}
+        | {seq:int, type:enum(attached|detached), pid:int}
+        | {seq:int, type:enum(prompt), kind:enum(msgyn|getline|dialog), text:(str|null), answer:(int|null)}
+        | {seq:int, type:enum(dialog_dismissed), title:str, text:str}
+        | {seq:int, type:enum(warning|log_overflow|late_result|plugin_widget), message:str}
+        | {seq:int, type:enum(trace_file), path:str}
+        | {seq:int, type:enum(table_updated), id:int}
+        | {seq:int, type:enum(events_dropped), count:int} )
